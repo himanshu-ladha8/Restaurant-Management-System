@@ -7,7 +7,8 @@ const getBaseURL = () => {
     return envURL;
   }
   // Default for development
-  return "https://localhost:44300/api";
+  return "https://rms-backend-5cep.onrender.com";
+  //return "https://localhost:44300/api";
 };
 
 const api = axios.create({
