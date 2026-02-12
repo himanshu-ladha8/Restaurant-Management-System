@@ -1,0 +1,15 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# ASP.NET
+*.user
+*.suo
+
+# React
+node_modules/
+build/
+
+# Logs
+*.log
