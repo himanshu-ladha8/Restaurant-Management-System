@@ -11,7 +11,6 @@ using RMS.Services;
 using Stripe;
 using System.Text;
 using System.Text.Json.Serialization;
-using FrontendSettings = RMS.Services.FrontendSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,8 +36,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(AllowAllOrigins, policy =>
     {
         policy
-            .WithOrigins("https://rms-frontend-vw74.onrender.com")
-            //.AllowAnyOrigin()
+            .WithOrigins("http://localhost:3000", "https://localhost:3000", "http://localhost:3001")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials(); // Required for SignalR
@@ -56,10 +54,6 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailService, EmailService>();
-
-// Register Frontend Settings
-builder.Services.Configure<FrontendSettings>(
-    builder.Configuration.GetSection("FrontendSettings"));
 
 // JWT settings
 builder.Services.Configure<JwtSettings>(
