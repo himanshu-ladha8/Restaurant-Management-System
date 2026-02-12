@@ -11,6 +11,7 @@ using RMS.Services;
 using Stripe;
 using System.Text;
 using System.Text.Json.Serialization;
+using FrontendSettings = RMS.Services.FrontendSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailService, EmailService>();
+
+// Register Frontend Settings
+builder.Services.Configure<FrontendSettings>(
+    builder.Configuration.GetSection("FrontendSettings"));
 
 // JWT settings
 builder.Services.Configure<JwtSettings>(

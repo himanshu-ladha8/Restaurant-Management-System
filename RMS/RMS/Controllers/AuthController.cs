@@ -10,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using FrontendSettings = RMS.Services.FrontendSettings;
 
 namespace RMS.Controllers;
 
@@ -20,6 +21,7 @@ public class AuthController : ControllerBase
     private readonly RMSDbContext _context;
     private readonly JwtSettings _jwtSettings;
     private readonly IEmailService _emailService;
+    private readonly FrontendSettings _frontendSettings;
     private readonly ILogger<AuthController> _logger;
     
     // In-memory storage for password reset tokens (for production, use database)
@@ -35,11 +37,12 @@ public class AuthController : ControllerBase
     private static readonly object _emailLock = new();
     private const int EMAIL_COOLDOWN_HOURS = 2; // Send email only if 2+ hours have passed since last email
 
-    public AuthController(RMSDbContext context, IOptions<JwtSettings> jwtOptions, IEmailService emailService, ILogger<AuthController> logger)
+    public AuthController(RMSDbContext context, IOptions<JwtSettings> jwtOptions, IEmailService emailService, IOptions<FrontendSettings> frontendOptions, ILogger<AuthController> logger)
     {
         _context = context;
         _jwtSettings = jwtOptions.Value;
         _emailService = emailService;
+        _frontendSettings = frontendOptions.Value;
         _logger = logger;
     }
 
@@ -439,7 +442,10 @@ public class AuthController : ControllerBase
         // In production, send email with reset link
         // For now, return the token in response (for development/testing only)
         // In production, remove this and send email instead
-        var resetLink = $"/reset-password?token={resetToken}&type=admin";
+        var frontendBaseUrl = !string.IsNullOrEmpty(_frontendSettings.BaseUrl) 
+            ? _frontendSettings.BaseUrl 
+            : "https://rms-frontend-vw74.onrender.com";
+        var resetLink = $"{frontendBaseUrl}/reset-password?token={resetToken}&type=admin";
         
         return Ok(new { 
             message = "Password reset link has been generated.",

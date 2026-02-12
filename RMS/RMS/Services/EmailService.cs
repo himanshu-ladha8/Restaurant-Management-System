@@ -138,3 +138,8 @@ public class EmailSettings
     public string SenderName { get; set; } = string.Empty;
 }
 
+public class FrontendSettings
+{
+    public string BaseUrl { get; set; } = string.Empty;
+}
+
