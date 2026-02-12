@@ -98,3 +98,4 @@ export const getAvailableSlots = (tableId, date, duration = 60) => {
 
 
 
+

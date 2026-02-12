@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useCallback } from "react";
+import { createContext, useState, useEffect, useCallback, useRef } from "react";
 
 export const AuthContext = createContext();
 
@@ -17,6 +17,9 @@ export const AuthProvider = ({ children }) => {     //wraps entire app and authe
   });
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
+  // Use ref to store logout function to avoid circular dependencies
+  const logoutRef = useRef(null);
+
   // Check if token is expired
   const isTokenExpired = useCallback(() => {
     if (!user?.token) return true;
@@ -31,22 +34,57 @@ export const AuthProvider = ({ children }) => {     //wraps entire app and authe
     }
   }, [user]);
 
-  // Check session timeout
+  // Update last activity timestamp
+  const updateLastActivity = useCallback(() => {
+    localStorage.setItem("lastActivity", Date.now().toString());
+  }, []);
+
+  // Logout function - defined early so it can be used by other callbacks
+  const logout = useCallback(() => {
+    // Store user role before logout (since user will be null after logout)
+    const currentUser = user;
+    const userRole = currentUser?.role || currentUser?.userType;
+    const wasCustomer = userRole === "Customer";
+    
+    // Clear auth-related items
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("lastActivity");
+    localStorage.removeItem("returnUrl");
+    
+    // Clear all cart data (both guest and user carts)
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith("guestCart_")) {
+        localStorage.removeItem(key);
+      }
+    });
+    
+    setUser(null);
+    
+    // Always redirect customers to home page on logout
+    if (wasCustomer) {
+      window.location.href = "/";
+    }
+  }, [user]);
+
+  // Update logout ref whenever logout function changes
+  useEffect(() => {
+    logoutRef.current = logout;
+  }, [logout]);
+
+  // Check session timeout - uses ref to avoid circular dependency
   const checkSessionTimeout = useCallback(() => {
     const lastActivity = localStorage.getItem("lastActivity");
     if (lastActivity) {
       const timeSinceActivity = Date.now() - parseInt(lastActivity, 10);
       if (timeSinceActivity > SESSION_TIMEOUT) {
-        logout();
+        if (logoutRef.current) {
+          logoutRef.current();
+        }
         return true;
       }
     }
     return false;
-  }, []);
-
-  // Update last activity timestamp
-  const updateLastActivity = useCallback(() => {
-    localStorage.setItem("lastActivity", Date.now().toString());
   }, []);
 
   // Initialize auth check
@@ -62,7 +100,9 @@ export const AuthProvider = ({ children }) => {     //wraps entire app and authe
       // Check if token is expired
       if (isTokenExpired()) {
         console.log("Token expired, logging out");
-        logout();
+        if (logoutRef.current) {
+          logoutRef.current();
+        }
         setIsCheckingAuth(false);
         return;
       }
@@ -107,10 +147,12 @@ export const AuthProvider = ({ children }) => {     //wraps entire app and authe
     const interval = setInterval(() => {
       if (isTokenExpired()) {
         console.log("Token expired during refresh check");
-        logout();
+        if (logoutRef.current) {
+          logoutRef.current();
+        }
       } else if (checkSessionTimeout()) {
         console.log("Session timeout");
-        logout();
+        // logout is already called inside checkSessionTimeout
       } else {
         updateLastActivity();
       }
@@ -129,32 +171,6 @@ export const AuthProvider = ({ children }) => {     //wraps entire app and authe
       console.error("Error saving user data:", e);
     }
   };
-
-  const logout = useCallback(() => {
-    // Store user role before logout (since user will be null after logout)
-    const userRole = user?.role || user?.userType;
-    const wasCustomer = userRole === "Customer";
-    
-    // Clear auth-related items
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("lastActivity");
-    localStorage.removeItem("returnUrl");
-    
-    // Clear all cart data (both guest and user carts)
-    Object.keys(localStorage).forEach(key => {
-      if (key.startsWith("guestCart_")) {
-        localStorage.removeItem(key);
-      }
-    });
-    
-    setUser(null);
-    
-    // Always redirect customers to home page on logout
-    if (wasCustomer) {
-      window.location.href = "/";
-    }
-  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, loginUser, logout, isCheckingAuth }}>
