@@ -36,7 +36,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(AllowAllOrigins, policy =>
     {
         policy
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("https://rms-frontend-vw74.onrender.com")
             //.AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod()
