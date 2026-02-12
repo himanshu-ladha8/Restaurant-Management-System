@@ -4,23 +4,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 WORKDIR /src
 
-# Copy solution file
-COPY ../*.sln ./
+# Copy entire source (because Root Directory = RMS)
+COPY . .
 
-# Copy project files
-COPY ../RMS/RMS.csproj RMS/
-COPY ../RMS.EntityFramework/RMS.EntityFramework.csproj RMS.EntityFramework/
-COPY ../RMS.ServiceFramework/RMS.ServiceFramework.csproj RMS.ServiceFramework/
-
-# Restore dependencies
-RUN dotnet restore
-
-# Copy everything
-COPY .. .
-
-# Publish
+# Go to main API project
 WORKDIR /src/RMS
-RUN dotnet publish -c Release -o /app/publish
+
+# Restore & Publish
+RUN dotnet restore RMS.csproj
+RUN dotnet publish RMS.csproj -c Release -o /app/publish
 
 # =========================
 # RUNTIME STAGE
@@ -28,6 +20,8 @@ RUN dotnet publish -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview
 WORKDIR /app
 COPY --from=build /app/publish .
+
 ENV ASPNETCORE_URLS=http://+:10000
 EXPOSE 10000
+
 ENTRYPOINT ["dotnet", "RMS.dll"]
