@@ -7,7 +7,7 @@ const getBaseURL = () => {
     return envURL;
   }
   // Default for development
-  return "https://rms-backend-5cep.onrender.com";
+  return "https://rms-backend-5cep.onrender.com/api";
   //return "https://localhost:44300/api";
 };
 

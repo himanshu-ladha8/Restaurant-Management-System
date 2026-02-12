@@ -10,7 +10,7 @@ class SignalRService {
 
   // Get SignalR hub URL
   getHubUrl() {
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "https://localhost:44300/api";
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "https://rms-backend-5cep.onrender.com/api";
     // Remove /api from the end if present
     const baseUrl = apiBaseUrl.replace(/\/api$/, "");
     const hubUrl = `${baseUrl}/orderHub`;
