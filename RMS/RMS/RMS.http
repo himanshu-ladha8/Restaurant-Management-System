@@ -1,6 +1,0 @@
-@RMS_HostAddress = http://localhost:5288
-
-GET {{RMS_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
