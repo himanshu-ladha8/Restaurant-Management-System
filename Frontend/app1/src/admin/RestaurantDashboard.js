@@ -547,7 +547,7 @@ const RestaurantDashboard = () => {
               fontFamily: "'Playfair Display', 'Georgia', serif",
             }}
           >
-            Welcome, {user?.email || "Restaurant Admin"}!
+            Welcome, {user?.fullName || user?.FullName || user?.email?.split("@")[0] || "Restaurant Admin"},Restaurant Admin!
           </Typography>
 
           <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
