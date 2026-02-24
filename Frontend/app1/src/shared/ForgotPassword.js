@@ -80,7 +80,7 @@ const ForgotPassword = () => {
               <Typography variant="h4" sx={{ fontWeight: 300, mb: 1, color: mode === 'dark' ? "white" : "#1a1a1a", letterSpacing: "0.05em", fontFamily: "'Playfair Display', 'Georgia', serif" }}>
                 Forgot Password?
               </Typography>
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 Enter your email address and we'll send you a link to reset your password
               </Typography>
             </Box>

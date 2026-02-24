@@ -26,8 +26,11 @@ const CustomerRestaurants = () => {
 
   const navLinks = [
     { path: "/customer-dashboard", label: "Dashboard" },
+    { path: "/customer-reservations", label: "Reservations" },
     { path: "/customer-orders", label: "My Orders" },
   ];
+
+  const fromReservation = location.state?.fromReservation === true;
 
   // Fetch restaurants on mount
   useEffect(() => {
@@ -161,6 +164,13 @@ const CustomerRestaurants = () => {
   return (
     <Layout title="Select a Restaurant" backPath={backPath} navLinks={navLinks}>
       <Box sx={{ mb: 4 }}>
+        {fromReservation && (
+          <Alert severity="info" sx={{ mb: 3 }} icon={false}>
+            <Typography variant="body2">
+              <strong>Book a table:</strong> Pick a restaurant below, then open it and use &quot;Book a Table&quot; to choose date, time and guests.
+            </Typography>
+          </Alert>
+        )}
         <Box sx={{ 
           display: "flex", 
           justifyContent: "space-between", 
@@ -358,7 +368,7 @@ const CustomerRestaurants = () => {
               },
             }}
           />
-          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
             Loading restaurants...
           </Typography>
         </Box>
@@ -371,7 +381,7 @@ const CustomerRestaurants = () => {
         >
           <CardContent sx={{ textAlign: "center", py: 8 }}>
             <RestaurantIcon sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               {searchTerm || locationFilter 
                 ? `No restaurants found${searchTerm ? ` matching "${searchTerm}"` : ""}${locationFilter ? ` in ${locationFilter}` : ""}`
                 : "No restaurants available"}
@@ -433,7 +443,7 @@ const CustomerRestaurants = () => {
                         {averageRating > 0 && (
                           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                             <Rating value={averageRating} readOnly size="small" precision={0.1} />
-                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                               {averageRating.toFixed(1)} ({totalReviews} {totalReviews === 1 ? 'review' : 'reviews'})
                             </Typography>
                           </Box>
@@ -444,7 +454,7 @@ const CustomerRestaurants = () => {
                     {address && (
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                         <LocationOn fontSize="small" color="action" />
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {address}
                         </Typography>
                       </Box>
@@ -453,7 +463,7 @@ const CustomerRestaurants = () => {
                     {phone && (
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                         <Phone fontSize="small" color="action" />
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {phone}
                         </Typography>
                       </Box>
@@ -462,7 +472,7 @@ const CustomerRestaurants = () => {
                     {(openTime || closeTime) && (
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
                         <AccessTime fontSize="small" color="action" />
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {openTime || "N/A"} - {closeTime || "N/A"}
                         </Typography>
                       </Box>

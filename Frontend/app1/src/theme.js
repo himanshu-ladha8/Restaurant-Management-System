@@ -45,7 +45,8 @@ export const getTheme = (mode = 'dark') => {
       },
       text: {
         primary: isDark ? '#FFFFFF' : '#1a1a1a',
-        secondary: isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
+        secondary: isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.87)',
+        disabled: isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.38)',
       },
     },
     typography: {
@@ -334,7 +335,7 @@ export const getTheme = (mode = 'dark') => {
               borderWidth: '1px',
             },
             '& .MuiInputLabel-root': {
-              color: isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+              color: isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.87)',
             },
             '& .MuiInputLabel-root.Mui-focused': {
               color: isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.87)',
@@ -449,7 +450,7 @@ export const getTheme = (mode = 'dark') => {
               color: isDark ? '#FFFFFF' : '#1a1a1a',
             },
             '& .MuiListItemText-secondary': {
-              color: isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
+              color: isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.87)',
             },
           },
         },
@@ -460,7 +461,50 @@ export const getTheme = (mode = 'dark') => {
             color: isDark ? '#FFFFFF' : '#1a1a1a',
           },
           secondary: {
-            color: isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
+            color: isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.87)',
+          },
+        },
+      },
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            color: 'inherit',
+          },
+          body1: {
+            color: 'inherit',
+          },
+          body2: {
+            color: 'inherit',
+          },
+          caption: {
+            color: 'inherit',
+          },
+          subtitle1: {
+            color: 'inherit',
+          },
+          subtitle2: {
+            color: 'inherit',
+          },
+        },
+      },
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+            color: isDark ? '#FFFFFF' : '#1a1a1a',
+            borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)',
+          },
+          head: {
+            color: isDark ? '#FFFFFF' : '#1a1a1a',
+            fontWeight: 600,
+          },
+        },
+      },
+      MuiTableHead: {
+        styleOverrides: {
+          root: {
+            '& .MuiTableCell-head': {
+              color: isDark ? '#FFFFFF' : '#1a1a1a',
+            },
           },
         },
       },

@@ -201,23 +201,47 @@ const CustomerReservations = () => {
           <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
             <CircularProgress />
           </Box>
-        ) : reservations.length === 0 ? (
-          <Card sx={{ borderRadius: "16px" }}>
-            <CardContent sx={{ textAlign: "center", py: 6 }}>
-              <CalendarToday sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300, mb: 2 }}>
-                No reservations found
-              </Typography>
+        ) : (
+          <>
+            {/* Do a reservation — always visible when not loading */}
+            <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 3 }}>
               <Button
                 variant="contained"
-                onClick={() => navigate("/customer-restaurants")}
-                sx={{ mt: 2 }}
+                startIcon={<CalendarToday />}
+                onClick={() => navigate("/customer-restaurants", { state: { fromReservation: true } })}
+                sx={{
+                  borderRadius: "4px",
+                  textTransform: "none",
+                  fontWeight: 600,
+                  py: 1.25,
+                  px: 2.5,
+                }}
               >
-                Browse Restaurants
+                Do a reservation
               </Button>
-            </CardContent>
-          </Card>
-        ) : (
+            </Box>
+
+            {reservations.length === 0 ? (
+              <Card sx={{ borderRadius: "16px" }}>
+                <CardContent sx={{ textAlign: "center", py: 6 }}>
+                  <CalendarToday sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+                  <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300, mb: 2 }}>
+                    No reservations yet
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.6)", mb: 2 }}>
+                    Pick a restaurant to book a table
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    startIcon={<CalendarToday />}
+                    onClick={() => navigate("/customer-restaurants", { state: { fromReservation: true } })}
+                    sx={{ mt: 2 }}
+                  >
+                    Do a reservation
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : (
           <Grid container spacing={3}>
             {reservations.map((reservation) => (
               <Grid item xs={12} md={6} key={reservation.reservationId}>
@@ -280,7 +304,7 @@ const CustomerReservations = () => {
                       </Grid>
                       {reservation.notes && (
                         <Grid item xs={12}>
-                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }}>
+                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }}>
                             <strong>Your Notes:</strong> {reservation.notes}
                           </Typography>
                         </Grid>
@@ -349,6 +373,8 @@ const CustomerReservations = () => {
               </Grid>
             ))}
           </Grid>
+            )}
+          </>
         )}
 
         {/* Action Dialog */}

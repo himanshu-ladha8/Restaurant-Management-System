@@ -281,10 +281,10 @@ const RestaurantTables = () => {
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
             <TableRestaurant sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               No tables found
             </Typography>
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 3, fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 3, fontWeight: 300 }}>
               Add your first table to get started
             </Typography>
             <Button variant="contained" startIcon={<Add />} onClick={handleAdd}>
@@ -318,7 +318,7 @@ const RestaurantTables = () => {
                       />
                     </Box>
                     
-                    <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 2, fontWeight: 300 }}>
+                    <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 2, fontWeight: 300 }}>
                       Capacity: {capacity} {capacity === 1 ? "person" : "people"}
                     </Typography>
 
@@ -424,7 +424,7 @@ const RestaurantTables = () => {
         </DialogTitle>
         <DialogContent>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", py: 2 }}>
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 3, textAlign: "center", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 3, textAlign: "center", fontWeight: 300 }}>
               Scan this QR code to view the menu for Table {qrDialog.table?.tableNumber}
             </Typography>
             <Box
@@ -446,7 +446,7 @@ const RestaurantTables = () => {
                 includeMargin={true}
               />
             </Box>
-            <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 1, wordBreak: "break-all", textAlign: "center", fontWeight: 300 }}>
+            <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 1, wordBreak: "break-all", textAlign: "center", fontWeight: 300 }}>
               {qrDialog.qrUrl}
             </Typography>
             <Button

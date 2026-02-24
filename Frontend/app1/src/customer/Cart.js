@@ -389,10 +389,10 @@ const Cart = () => {
           >
             <CardContent sx={{ textAlign: "center", py: 6 }}>
               <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
                 Your cart is empty
               </Typography>
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mt: 1, mb: 3, fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mt: 1, mb: 3, fontWeight: 300 }}>
                 Add items to your cart to get started
               </Typography>
               <Button
@@ -450,7 +450,7 @@ const Cart = () => {
                         <Typography variant="h6" fontWeight={600}>
                           {item.name || item.mealName}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           ₹{item.price?.toFixed(2) || "0.00"} each
                         </Typography>
                       </Box>

@@ -227,7 +227,7 @@ const CustomerLogin = () => {
               >
                 Customer Login
               </Typography>
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 1, fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 1, fontWeight: 300 }}>
                 Browse menu, place orders & track status
               </Typography>
               <Chip
@@ -263,7 +263,7 @@ const CustomerLogin = () => {
                 "& .MuiStepIcon-root": {
                   color: mode === 'dark' ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.3)",
                   "&.Mui-active": {
-                    color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                    color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                   },
                   "&.Mui-completed": {
                     color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.9)",
@@ -439,7 +439,7 @@ const CustomerLogin = () => {
                     We've sent a 4-digit OTP to <strong style={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "#1a1a1a" }}>{email}</strong>
                   </Typography>
                   {receivedOtp && (
-                    <Typography variant="body2" sx={{ mt: 1, fontFamily: "monospace", fontSize: "0.875rem", color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }}>
+                    <Typography variant="body2" sx={{ mt: 1, fontFamily: "monospace", fontSize: "0.875rem", color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }}>
                       (Dev Mode) OTP: <strong style={{ fontSize: "1rem", letterSpacing: "0.2rem", color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "#1a1a1a" }}>{receivedOtp}</strong>
                     </Typography>
                   )}
@@ -485,7 +485,7 @@ const CustomerLogin = () => {
                 />
                 {/* Resend OTP Section */}
                 <Box sx={{ textAlign: "center", mb: 2 }}>
-                  <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 1, fontWeight: 300 }}>
+                  <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 1, fontWeight: 300 }}>
                     Didn't receive the OTP?
                   </Typography>
                   <Button
@@ -594,7 +594,7 @@ const CustomerLogin = () => {
                 Forgot Password?
               </MuiLink>
 
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mt: 1, fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mt: 1, fontWeight: 300 }}>
                 Don&apos;t have an account?{" "}
                 <MuiLink 
                   component={Link} 

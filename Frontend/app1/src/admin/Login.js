@@ -234,7 +234,7 @@ const AdminLogin = () => {
               >
                 Admin / Restaurant Admin Login
               </Typography>
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 1, fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 1, fontWeight: 300 }}>
                 Sign in to manage your restaurant system
               </Typography>
               <Chip 
@@ -271,7 +271,7 @@ const AdminLogin = () => {
                 "& .MuiStepIcon-root": {
                   color: mode === 'dark' ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.3)",
                   "&.Mui-active": {
-                    color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                    color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                   },
                   "&.Mui-completed": {
                     color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.9)",
@@ -457,7 +457,7 @@ const AdminLogin = () => {
                     We've sent a 4-digit OTP to <strong style={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "#1a1a1a" }}>{email}</strong>
                   </Typography>
                   {receivedOtp && (
-                    <Typography variant="body2" sx={{ mt: 1, fontFamily: "monospace", fontSize: "0.875rem", color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }}>
+                    <Typography variant="body2" sx={{ mt: 1, fontFamily: "monospace", fontSize: "0.875rem", color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }}>
                       (Dev Mode) OTP: <strong style={{ fontSize: "1rem", letterSpacing: "0.2rem", color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "#1a1a1a" }}>{receivedOtp}</strong>
                     </Typography>
                   )}
@@ -505,7 +505,7 @@ const AdminLogin = () => {
 
                 {/* Resend OTP Section */}
                 <Box sx={{ textAlign: "center", mb: 2 }}>
-                  <Typography variant="body2" sx={{ mb: 1, color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                  <Typography variant="body2" sx={{ mb: 1, color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                     Didn't receive the OTP?
                   </Typography>
                   <Button
@@ -619,7 +619,7 @@ const AdminLogin = () => {
               </Box>
 
               <Box sx={{ textAlign: "center" }}>
-                <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                   Don't have an account?{" "}
                   <MuiLink 
                     component={Link} 

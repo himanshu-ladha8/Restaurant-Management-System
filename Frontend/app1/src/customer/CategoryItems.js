@@ -197,7 +197,7 @@ const CategoryItems = () => {
             <Typography
               variant="body2"
               sx={{
-                color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                 mt: 1,
                 fontWeight: 300,
               }}
@@ -229,7 +229,7 @@ const CategoryItems = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Search sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }} />
+                  <Search sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }} />
                 </InputAdornment>
               ),
               endAdornment: searchTerm && (
@@ -238,7 +238,7 @@ const CategoryItems = () => {
                     size="small"
                     onClick={() => setSearchTerm("")}
                     sx={{
-                      color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                      color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                     }}
                   >
                     <Clear />
@@ -263,7 +263,7 @@ const CategoryItems = () => {
           >
             <CardContent sx={{ textAlign: "center", py: 8 }}>
               <Restaurant sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
-              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 {searchTerm
                   ? `No ${category} items found matching "${searchTerm}"`
                   : `No ${category} items available at the moment`}
@@ -275,7 +275,7 @@ const CategoryItems = () => {
             <Typography
               variant="body2"
               sx={{
-                color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                 mb: 3,
                 fontWeight: 300,
               }}
@@ -348,7 +348,7 @@ const CategoryItems = () => {
                             <Typography
                               variant="body2"
                               sx={{
-                                color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                                color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                                 mb: 1,
                                 fontWeight: 300,
                                 display: "-webkit-box",
@@ -361,11 +361,11 @@ const CategoryItems = () => {
                             </Typography>
                           )}
                           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                            <Restaurant fontSize="small" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }} />
+                            <Restaurant fontSize="small" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }} />
                             <Typography
                               variant="body2"
                               sx={{
-                                color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                                color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                                 fontWeight: 300,
                                 cursor: "pointer",
                                 "&:hover": {
@@ -379,7 +379,7 @@ const CategoryItems = () => {
                           </Box>
                           {meal.restaurantAddress && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
-                              <LocationOn fontSize="small" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }} />
+                              <LocationOn fontSize="small" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }} />
                               <Typography
                                 variant="caption"
                                 sx={{
@@ -457,7 +457,7 @@ const CategoryItems = () => {
             Login Required
           </DialogTitle>
           <DialogContent>
-            <Typography sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+            <Typography sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
               Please login to add items to your cart and place orders.
             </Typography>
           </DialogContent>

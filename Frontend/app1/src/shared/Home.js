@@ -51,7 +51,9 @@ const Home = () => {
     "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Surat",
     "Indore", "Nadiad"
   ];
-
+  //getting full year
+  const currentYear = new Date().getFullYear();
+  
   useEffect(() => {
     fetchRestaurants();
   }, []);
@@ -267,8 +269,8 @@ const Home = () => {
           justifyContent: "center",
           overflow: "hidden",
           backgroundImage: mode === 'dark' 
-            ? "linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"
-            : "linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.5) 100%), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+            ? "linear-gradient(135deg, rgba(0, 0, 0, 0.87) 0%, rgba(0, 0, 0, 0.5) 100%), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"
+            : "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 100%), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -441,7 +443,7 @@ const Home = () => {
             <Typography
               variant="body1"
               sx={{
-                color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                 fontSize: { xs: "1rem", md: "1.125rem" },
                 maxWidth: "600px",
                 mx: "auto",
@@ -770,7 +772,7 @@ const Home = () => {
             <Typography
               variant="body1"
               sx={{
-                color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                 fontSize: { xs: "1rem", md: "1.125rem" },
                 maxWidth: "600px",
                 mx: "auto",
@@ -854,7 +856,7 @@ const Home = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                  color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                   fontSize: { xs: "0.875rem", md: "1rem" },
                   fontWeight: 300,
                 }}
@@ -894,7 +896,7 @@ const Home = () => {
             <Card sx={{ bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)", border: mode === 'dark' ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(0, 0, 0, 0.08)" }}>
               <CardContent sx={{ textAlign: "center", py: 8 }}>
                 <Restaurant sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
-                <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                   No restaurants available
                 </Typography>
               </CardContent>
@@ -989,23 +991,23 @@ const Home = () => {
                         {averageRating > 0 && (
                           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                             <Rating value={averageRating} readOnly size="small" precision={0.1} sx={{ '& .MuiRating-iconFilled': { color: '#FFD700' } }} />
-                            <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                            <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                               ({totalReviews} {totalReviews === 1 ? 'review' : 'reviews'})
                             </Typography>
                           </Box>
                         )}
                         {address && (
                           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
-                            <LocationOn fontSize="small" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }} />
-                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", flex: 1, fontWeight: 300 }}>
+                            <LocationOn fontSize="small" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }} />
+                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", flex: 1, fontWeight: 300 }}>
                               {address.length > 40 ? `${address.substring(0, 40)}...` : address}
                             </Typography>
                           </Box>
                         )}
                         {(openTime || closeTime) && (
                           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
-                            <AccessTime fontSize="small" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }} />
-                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                            <AccessTime fontSize="small" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }} />
+                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                               {openTime || "N/A"} - {closeTime || "N/A"}
                             </Typography>
                           </Box>
@@ -1087,7 +1089,7 @@ const Home = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <LocationOn sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }} />
+                  <LocationOn sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }} />
                 </InputAdornment>
               ),
             }}
@@ -1100,7 +1102,7 @@ const Home = () => {
             }}
           />
           
-          <Typography variant="subtitle2" sx={{ fontWeight: 300, mb: 2, color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 300, mb: 2, color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
             Popular Cities
           </Typography>
           <List sx={{ maxHeight: 300, overflow: "auto" }}>
@@ -1131,7 +1133,7 @@ const Home = () => {
                       },
                     }}
                   >
-                    <LocationOn sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mr: 2, fontSize: 20 }} />
+                    <LocationOn sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mr: 2, fontSize: 20 }} />
                     <ListItemText primary={city} />
                   </ListItemButton>
                 </ListItem>
@@ -1233,7 +1235,7 @@ const Home = () => {
           </Grid>
           <Box sx={{ borderTop: mode === 'dark' ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.08)", mt: 4, pt: 4, textAlign: "center" }}>
             <Typography variant="body2" sx={{ opacity: 0.7, fontWeight: 300, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
-              © 2024 RestaurantHub. All rights reserved. Created by Himanshu Ladha
+              © {currentYear} RestaurantHub. All rights reserved. Created by Himanshu Ladha
             </Typography>
           </Box>
         </Container>

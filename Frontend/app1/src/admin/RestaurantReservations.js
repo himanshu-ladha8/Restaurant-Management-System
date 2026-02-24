@@ -314,7 +314,7 @@ const RestaurantReservations = () => {
           <Card sx={{ borderRadius: "16px" }}>
             <CardContent sx={{ textAlign: "center", py: 6 }}>
               <CalendarToday sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 No reservations found
               </Typography>
             </CardContent>
@@ -340,7 +340,7 @@ const RestaurantReservations = () => {
                         <Typography variant="body2" fontWeight={600}>
                           {formatDate(reservation.reservationDate)}
                         </Typography>
-                        <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }}>
+                        <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }}>
                           {formatTime(reservation.reservationTime)}
                           {reservation.suggestedTime && (
                             <Chip
@@ -359,13 +359,13 @@ const RestaurantReservations = () => {
                           {reservation.customerName}
                         </Typography>
                         {reservation.customerPhone && (
-                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", display: "block" }}>
+                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", display: "block" }}>
                             <Phone sx={{ fontSize: 12, verticalAlign: "middle", mr: 0.5 }} />
                             {reservation.customerPhone}
                           </Typography>
                         )}
                         {reservation.customerEmail && (
-                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", display: "block" }}>
+                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", display: "block" }}>
                             <Email sx={{ fontSize: 12, verticalAlign: "middle", mr: 0.5 }} />
                             {reservation.customerEmail}
                           </Typography>
@@ -376,7 +376,7 @@ const RestaurantReservations = () => {
                       <Typography variant="body2">
                         Table {reservation.tableNumber}
                       </Typography>
-                      <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }}>
+                      <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }}>
                         Capacity: {reservation.tableCapacity}
                       </Typography>
                     </TableCell>
@@ -385,7 +385,7 @@ const RestaurantReservations = () => {
                         <People sx={{ fontSize: 16 }} />
                         <Typography variant="body2">{reservation.numberOfGuests}</Typography>
                       </Box>
-                      <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }}>
+                      <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }}>
                         {reservation.duration} min
                       </Typography>
                     </TableCell>

@@ -35,10 +35,15 @@ const Layout = ({ title, children, backPath, navLinks = [] }) => {
   };
 
   const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (event?.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setDrawerOpen(open);
+    // Defer close so it doesn't run in same tick as Link navigation (avoids concurrent render error)
+    if (!open) {
+      setTimeout(() => setDrawerOpen(false), 0);
+    } else {
+      setDrawerOpen(open);
+    }
   };
 
   const drawerContent = (
@@ -76,7 +81,7 @@ const Layout = ({ title, children, backPath, navLinks = [] }) => {
                 borderRadius: 2,
                 mx: 1,
                 transition: 'all 0.3s',
-                color: mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)',
+                color: mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.87)',
                 '&:hover': {
                   backgroundColor: mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.04)',
                   transform: 'translateX(4px)',
@@ -100,7 +105,7 @@ const Layout = ({ title, children, backPath, navLinks = [] }) => {
               borderRadius: 2,
               mx: 1,
               transition: 'all 0.3s',
-              color: mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)',
+              color: mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.87)',
               '&:hover': {
                 backgroundColor: mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.04)',
                 transform: 'translateX(4px)',
@@ -121,8 +126,24 @@ const Layout = ({ title, children, backPath, navLinks = [] }) => {
     </Box>
   );
 
+  // Restaurant-themed background image (elegant dining/ambiance); overlay keeps content readable and font visible
+  const bgImageUrl = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920";
+  const overlayLight = "rgba(252, 251, 249, 0.88)";
+  const overlayDark = "rgba(12, 12, 12, 0.92)";
+
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: mode === 'dark' ? "#0a0a0a" : "#f5f5f5", display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundImage: `linear-gradient(${mode === 'dark' ? overlayDark : overlayLight}, ${mode === 'dark' ? overlayDark : overlayLight}), url("${bgImageUrl}")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <AppBar 
         position="static" 
         elevation={0} 
@@ -252,7 +273,8 @@ const Layout = ({ title, children, backPath, navLinks = [] }) => {
           py: { xs: 2, sm: 4 }, 
           px: { xs: 1, sm: 2 },
           flex: 1,
-          width: '100%'
+          width: '100%',
+          color: mode === 'dark' ? '#ffffff' : '#1a1a1a',
         }}
       >
         {children}

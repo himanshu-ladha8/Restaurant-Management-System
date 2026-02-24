@@ -187,7 +187,7 @@ const PaymentDialog = ({ open, onClose, order, onPaymentSuccess }) => {
                         <Icon sx={{ color: method.color }} />
                         <Box>
                           <Typography fontWeight={600}>{method.label}</Typography>
-                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             {method.description}
                           </Typography>
                         </Box>

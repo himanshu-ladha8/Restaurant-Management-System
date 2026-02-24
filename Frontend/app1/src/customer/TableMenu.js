@@ -658,10 +658,10 @@ const TableMenu = () => {
           <Card>
             <CardContent sx={{ textAlign: "center", py: 8 }}>
               <RestaurantMenu sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
                 No meals available
               </Typography>
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 3, fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 3, fontWeight: 300 }}>
                 {searchTerm || categoryFilter !== "all"
                   ? "No meals match your search criteria"
                   : "This restaurant currently has no items on the menu."}
@@ -677,7 +677,7 @@ const TableMenu = () => {
               <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
                 Our Menu
               </Typography>
-              <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 3, fontWeight: 300 }}>
+              <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 3, fontWeight: 300 }}>
                 Scan the QR code at your table to view this menu
               </Typography>
               {table && (
@@ -870,7 +870,7 @@ const TableMenu = () => {
                           <Chip label={category} size="small" sx={{ mb: 1 }} />
                         )}
                         {description && (
-                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 2, fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 2, fontWeight: 300 }}>
                             {description}
                           </Typography>
                         )}
@@ -916,7 +916,7 @@ const TableMenu = () => {
             <Box sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Box sx={{ textAlign: "center" }}>
                 <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-                <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                   Your cart is empty
                 </Typography>
               </Box>

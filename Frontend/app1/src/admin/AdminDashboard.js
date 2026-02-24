@@ -86,7 +86,7 @@ const AdminDashboard = () => {
           >
             Welcome, {user?.email || "Admin"}!
           </Typography>
-          <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+          <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
             Manage your restaurant management system
           </Typography>
         </Box>
@@ -111,7 +111,7 @@ const AdminDashboard = () => {
                 },
               }}
             />
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
               Loading dashboard...
             </Typography>
           </Box>

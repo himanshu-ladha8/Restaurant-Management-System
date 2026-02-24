@@ -76,7 +76,7 @@ const RestaurantReviews = () => {
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                   <RateReview color="primary" />
-                  <Typography variant="subtitle2" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+                  <Typography variant="subtitle2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
                     Total Reviews
                   </Typography>
                 </Box>
@@ -91,7 +91,7 @@ const RestaurantReviews = () => {
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                   <Star color="primary" />
-                  <Typography variant="subtitle2" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+                  <Typography variant="subtitle2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
                     Average Rating
                   </Typography>
                 </Box>
@@ -109,7 +109,7 @@ const RestaurantReviews = () => {
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                   <TrendingUp color="primary" />
-                  <Typography variant="subtitle2" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+                  <Typography variant="subtitle2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
                     5 Star Reviews
                   </Typography>
                 </Box>
@@ -122,7 +122,7 @@ const RestaurantReviews = () => {
           <Grid item xs={12} sm={6} md={3}>
             <Card>
               <CardContent>
-                <Typography variant="subtitle2" sx={{ color: "rgba(255, 255, 255, 0.7)", mb: 1, fontWeight: 300 }}>
+                <Typography variant="subtitle2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 1, fontWeight: 300 }}>
                   Rating Distribution
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
@@ -172,10 +172,10 @@ const RestaurantReviews = () => {
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
             <RateReview sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-            <Typography variant="h6" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }} gutterBottom>
+            <Typography variant="h6" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }} gutterBottom>
               No reviews yet
             </Typography>
-            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
               Customers haven't left any reviews for your restaurant yet.
             </Typography>
           </CardContent>
@@ -212,7 +212,7 @@ const RestaurantReviews = () => {
                             {comment}
                           </Typography>
                         )}
-                        <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
                           {createdAt ? formatDateTime(createdAt) : "N/A"}
                         </Typography>
                       </Box>

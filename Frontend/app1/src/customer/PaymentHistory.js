@@ -126,7 +126,7 @@ const PaymentHistory = () => {
         <Grid item xs={12} sm={6} md={4}>
           <Card>
             <CardContent>
-              <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 Total Payments
               </Typography>
               <Typography variant="h4" sx={{ fontWeight: 700 }}>
@@ -138,7 +138,7 @@ const PaymentHistory = () => {
         <Grid item xs={12} sm={6} md={4}>
           <Card>
             <CardContent>
-              <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 Total Amount Paid
               </Typography>
               <Typography variant="h4" sx={{ fontWeight: 700, color: "primary.main" }}>
@@ -157,10 +157,10 @@ const PaymentHistory = () => {
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
             <Payment sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               No payments found
             </Typography>
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
               Your payment history will appear here
             </Typography>
           </CardContent>

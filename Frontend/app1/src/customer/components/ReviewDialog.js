@@ -13,12 +13,15 @@ const ReviewDialog = ({ open, onClose, restaurantId, restaurantName, onReviewSub
   useEffect(() => {
     if (open && restaurantId) {
       loadExistingReview();
-    } else {
-      // Reset form when dialog closes
-      setRating(0);
-      setComment("");
-      setError("");
-      setExistingReview(null);
+    } else if (!open) {
+      // Defer reset to avoid concurrent render when parent closes dialog
+      const t = setTimeout(() => {
+        setRating(0);
+        setComment("");
+        setError("");
+        setExistingReview(null);
+      }, 0);
+      return () => clearTimeout(t);
     }
   }, [open, restaurantId]);
 
@@ -105,7 +108,7 @@ const ReviewDialog = ({ open, onClose, restaurantId, restaurantName, onReviewSub
       </DialogTitle>
       <DialogContent>
         <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.7)", mb: 2, fontWeight: 300 }}>
+          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 2, fontWeight: 300 }}>
             Restaurant: <strong>{restaurantName || "Restaurant"}</strong>
           </Typography>
           {existingReview && (
@@ -131,7 +134,7 @@ const ReviewDialog = ({ open, onClose, restaurantId, restaurantName, onReviewSub
               sx={{ fontSize: "2rem" }}
             />
             {rating > 0 && (
-              <Typography variant="body1" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+              <Typography variant="body1" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
                 {rating} {rating === 1 ? "star" : "stars"}
               </Typography>
             )}

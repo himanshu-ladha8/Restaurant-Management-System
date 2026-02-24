@@ -295,10 +295,10 @@ const RestaurantOrders = () => {
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
             <Receipt sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               No orders found
             </Typography>
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
               {statusFilter ? `No orders with status "${statusFilter}"` : "No orders yet"}
             </Typography>
           </CardContent>
@@ -327,12 +327,12 @@ const RestaurantOrders = () => {
                         <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", mb: 1 }}>
                           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                             <TableRestaurant fontSize="small" color="action" />
-                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                               {tableNumber}
                             </Typography>
                           </Box>
                         </Box>
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {createdAt ? formatDateTime(createdAt) : "N/A"}
                         </Typography>
                       </Box>
@@ -367,7 +367,7 @@ const RestaurantOrders = () => {
                     <Divider sx={{ my: 2 }} />
 
                     <Box sx={{ mb: 2 }}>
-                      <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 1, fontWeight: 300 }}>
+                      <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 1, fontWeight: 300 }}>
                         Quick update
                       </Typography>
                       <Stack direction="row" spacing={1} flexWrap="wrap">
@@ -392,22 +392,22 @@ const RestaurantOrders = () => {
                       {latestPayment ? (
                         <Stack spacing={0.5}>
                           <Typography variant="subtitle2">Payment</Typography>
-                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             Mode: {latestPayment.paymentMode || latestPayment.PaymentMode || "N/A"}
                           </Typography>
-                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             Status: {orderStatus === "Cancelled" 
                               ? (latestPayment.paymentStatus === "Refunded" || latestPayment.PaymentStatus === "Refunded" 
                                   ? "Refunded" 
                                   : "Cancelled")
                               : (latestPayment.paymentStatus || latestPayment.PaymentStatus || "N/A")}
                           </Typography>
-                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             Received: {latestPayment.createdAt ? formatDateTime(latestPayment.createdAt) : "N/A"}
                           </Typography>
                         </Stack>
                       ) : (
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {orderStatus === "Cancelled" ? "No payment was made for this cancelled order." : "No payment recorded yet."}
                         </Typography>
                       )}
@@ -421,7 +421,7 @@ const RestaurantOrders = () => {
                       </AccordionSummary>
                       <AccordionDetails>
                         {orderItems.length === 0 ? (
-                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             No items in this order.
                           </Typography>
                         ) : (

@@ -1,14 +1,16 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useThemeMode } from "../context/ThemeContext";
-import { Box, Typography, Alert, Grid, Card, CardContent, CircularProgress, Tabs, Tab, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip, FormControl, InputLabel, Select, MenuItem, Button, Stack, Accordion, AccordionSummary, AccordionDetails, Snackbar, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { Receipt, RestaurantMenu, TableRestaurant, TrendingUp, BarChart, AttachMoney, ShoppingCart, Assessment, AccessTime, CheckCircle, LocalDining, ExpandMore, ArrowBack, Payment } from "@mui/icons-material";
+import { Box, Typography, Alert, Grid, Card, CardContent, CircularProgress, Tabs, Tab, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip, FormControl, InputLabel, Select, MenuItem, Button, Stack, Accordion, AccordionSummary, AccordionDetails, Snackbar, TextField, ToggleButton, ToggleButtonGroup, IconButton } from "@mui/material";
+import { Receipt, RestaurantMenu, TableRestaurant, TrendingUp, BarChart, AttachMoney, ShoppingCart, Assessment, AccessTime, CheckCircle, LocalDining, ExpandMore, ArrowBack, Payment, PictureAsPdf } from "@mui/icons-material";
 import Layout from "../shared/components/Layout";
 import { getOrders, updateOrderStatus } from "../services/RestaurantOrderService";
 import { getMeals } from "../services/MealService";
 import { getTables } from "../services/TableService";
 import { getAnalytics, getDailyRevenue, getDailyFoodSales } from "../services/AnalyticsService";
+import { getMyRestaurant } from "../services/RestaurantService";
 import signalRService from "../services/signalRService";
+import html2pdf from "html2pdf.js";
 
 const RestaurantDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -16,6 +18,18 @@ const RestaurantDashboard = () => {
   const restaurantId = user?.restaurantId;
   const ordersSectionRef = useRef(null);
   const previousOrdersLengthRef = useRef(0);
+  // Refs for Analytics PDF export (per section)
+  const analyticsFullRef = useRef(null);
+  const analyticsRevenueCardsRef = useRef(null);
+  const analyticsPopularItemsRef = useRef(null);
+  const analyticsPaymentMethodsRef = useRef(null);
+  const analyticsStatusBreakdownRef = useRef(null);
+  const analyticsDailyRevenueRef = useRef(null);
+  const analyticsDailyFoodSalesRef = useRef(null);
+  const analyticsTodayFoodSummaryRef = useRef(null);
+  const analyticsTodaySalesRef = useRef(null);
+  const [pdfExportingSection, setPdfExportingSection] = useState(null);
+  const [restaurantName, setRestaurantName] = useState("");
   const [stats, setStats] = useState({
     todayOrders: 0,
     pendingOrders: 0,
@@ -56,7 +70,7 @@ const RestaurantDashboard = () => {
 
   useEffect(() => {
     if (!restaurantId) {
-      setStats({ ...stats, loading: false });
+      setStats((prev) => ({ ...prev, loading: false }));
       return;
     }
 
@@ -91,7 +105,7 @@ const RestaurantDashboard = () => {
         });
       } catch (err) {
         console.error("Error fetching stats:", err);
-        setStats({ ...stats, loading: false });
+        setStats((prev) => ({ ...prev, loading: false }));
       }
     };
 
@@ -214,6 +228,90 @@ const RestaurantDashboard = () => {
       console.error("Error fetching daily food sales:", err);
     } finally {
       setDailyFoodSalesLoading(false);
+    }
+  };
+
+  const analyticsPdfRefMap = {
+    full: analyticsFullRef,
+    revenue: analyticsRevenueCardsRef,
+    popularItems: analyticsPopularItemsRef,
+    paymentMethods: analyticsPaymentMethodsRef,
+    statusBreakdown: analyticsStatusBreakdownRef,
+    todaySales: analyticsTodaySalesRef,
+    dailyRevenue: analyticsDailyRevenueRef,
+    dailyFoodSales: analyticsDailyFoodSalesRef,
+    todayFoodSummary: analyticsTodayFoodSummaryRef,
+  };
+
+  const getReportTitleForSection = (section) => {
+    const titles = {
+      full: "Analytics Report",
+      revenue: "Revenue Summary",
+      popularItems: "Popular Items",
+      paymentMethods: "Payment Methods",
+      statusBreakdown: "Order Status Breakdown",
+      todaySales: "Today's / Selected Date Sales",
+      dailyRevenue: "Day-by-Day Revenue",
+      dailyFoodSales: "Day-by-Day Food Sales",
+      todayFoodSummary: "Food Sales Summary",
+    };
+    return titles[section] || "Report";
+  };
+
+  const handleDownloadAnalyticsPdf = async (section) => {
+    const ref = analyticsPdfRefMap[section];
+    const el = ref?.current;
+    if (!el) {
+      setSnackbar({ open: true, message: "No data available for this section", severity: "info" });
+      return;
+    }
+    setPdfExportingSection(section);
+    try {
+      const periodLabel = dateRangeMode === "period"
+        ? `Last ${analyticsDays} days`
+        : selectedDate;
+      const sectionNames = {
+        full: "Full_Report",
+        revenue: "Revenue_Summary",
+        popularItems: "Popular_Items",
+        paymentMethods: "Payment_Methods",
+        statusBreakdown: "Order_Status",
+        todaySales: "Today_Sales",
+        dailyRevenue: "Day_by_Day_Revenue",
+        dailyFoodSales: "Day_by_Day_Food_Sales",
+        todayFoodSummary: "Food_Sales_Summary",
+      };
+      const filename = `Analytics_${sectionNames[section]}_${periodLabel}.pdf`;
+      const reportTitle = getReportTitleForSection(section);
+      const displayName = restaurantName || "Restaurant";
+      const wrapper = document.createElement("div");
+      wrapper.style.cssText = "padding: 20px; font-family: Arial, sans-serif; background: #fff; color: #1a1a1a;";
+      const header = document.createElement("div");
+      header.style.cssText = "text-align: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid #333;";
+      header.innerHTML = `
+        <div style="font-size: 22px; font-weight: 700; margin-bottom: 6px;">${displayName}</div>
+        <div style="font-size: 14px; color: #555;">${reportTitle}</div>
+        <div style="font-size: 12px; color: #777; margin-top: 4px;">Period: ${periodLabel} &nbsp;|&nbsp; Generated: ${new Date().toLocaleDateString("en-IN", { dateStyle: "medium" })}</div>
+      `;
+      wrapper.appendChild(header);
+      const clone = el.cloneNode(true);
+      wrapper.appendChild(clone);
+      // Remove PDF download buttons from clone so they don't appear in the exported PDF
+      clone.querySelectorAll("[data-pdf-export-hide]").forEach((node) => node.remove());
+      const options = {
+        margin: [10, 10, 10, 10],
+        filename,
+        image: { type: "jpeg", quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      };
+      await html2pdf().set(options).from(wrapper).save();
+      setSnackbar({ open: true, message: "PDF downloaded successfully", severity: "success" });
+    } catch (err) {
+      console.error("PDF export failed:", err);
+      setSnackbar({ open: true, message: "Failed to download PDF", severity: "error" });
+    } finally {
+      setPdfExportingSection(null);
     }
   };
 
@@ -422,6 +520,18 @@ const RestaurantDashboard = () => {
     }
   }, [statusFilter]);
 
+  // Fetch restaurant name for PDF reports (when Analytics tab is active)
+  useEffect(() => {
+    if (activeTab === 1 && restaurantId && !restaurantName) {
+      getMyRestaurant()
+        .then((res) => {
+          const name = res?.data?.name ?? res?.data?.Name ?? "";
+          if (name) setRestaurantName(name);
+        })
+        .catch(() => {});
+    }
+  }, [activeTab, restaurantId]);
+
   // Fetch all analytics data when Analytics tab is active or date range changes
   useEffect(() => {
     if (activeTab === 1 && restaurantId) {
@@ -550,7 +660,7 @@ const RestaurantDashboard = () => {
             Welcome, {user?.fullName || user?.FullName || user?.email?.split("@")[0] || "Restaurant Admin"},Restaurant Admin!
           </Typography>
 
-          <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+          <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
             Use the navigation menu to manage tables, meals, and orders.
           </Typography>
         </Box>
@@ -573,7 +683,7 @@ const RestaurantDashboard = () => {
                 fontWeight: 600,
                 borderRadius: "12px 12px 0 0",
                 transition: "all 0.3s",
-                color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+                color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                 "&.Mui-selected": {
                   color: mode === 'dark' ? "#FF6B35" : "#FF6B35",
                 },
@@ -611,7 +721,7 @@ const RestaurantDashboard = () => {
                 },
               }}
             />
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
               Loading dashboard...
             </Typography>
           </Box>
@@ -841,7 +951,7 @@ const RestaurantDashboard = () => {
                       <Card sx={{ bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                         <CardContent sx={{ textAlign: "center", py: 8 }}>
                           <Receipt sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
-                          <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             No orders today
                           </Typography>
                         </CardContent>
@@ -857,10 +967,10 @@ const RestaurantDashboard = () => {
                                     <Typography variant="h6" sx={{ fontWeight: 700, mb: 0.5, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
                                       Order #{order.orderId}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                                    <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                       Table {order.tableNumber}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                                    <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                       ₹{order.totalAmount.toFixed(2)}
                                     </Typography>
                                   </Box>
@@ -941,7 +1051,7 @@ const RestaurantDashboard = () => {
                       <Card sx={{ bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                         <CardContent sx={{ textAlign: "center", py: 8 }}>
                           <RestaurantMenu sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
-                          <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             No orders found
                           </Typography>
                         </CardContent>
@@ -987,10 +1097,10 @@ const RestaurantDashboard = () => {
                                           />
                                         )}
                                       </Box>
-                                      <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                                      <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                         Table {order.tableNumber}
                                       </Typography>
-                                      <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                                      <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                         ₹{order.totalAmount.toFixed(2)}
                                       </Typography>
                                     </Box>
@@ -1097,7 +1207,7 @@ const RestaurantDashboard = () => {
                                   <Chip label={meal.category} size="small" sx={{ mb: 1 }} variant="outlined" />
                                 )}
                                 {meal.description && (
-                                  <Typography variant="body2" sx={{ mb: 1, color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)" }}>
+                                  <Typography variant="body2" sx={{ mb: 1, color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)" }}>
                                     {meal.description}
                                   </Typography>
                                 )}
@@ -1124,7 +1234,7 @@ const RestaurantDashboard = () => {
                       <Card sx={{ bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                         <CardContent sx={{ textAlign: "center", py: 8 }}>
                           <TableRestaurant sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
-                          <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             No tables found
                           </Typography>
                         </CardContent>
@@ -1145,7 +1255,7 @@ const RestaurantDashboard = () => {
                                     size="small"
                                   />
                                 </Box>
-                                <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                                <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                   Capacity: {table.capacity} seats
                                 </Typography>
                               </CardContent>
@@ -1209,6 +1319,19 @@ const RestaurantDashboard = () => {
                     inputProps={{ max: new Date().toISOString().split('T')[0] }}
                   />
                 )}
+                {analytics && !analyticsLoading && (
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    startIcon={pdfExportingSection === "full" ? <CircularProgress size={18} /> : <PictureAsPdf />}
+                    onClick={() => handleDownloadAnalyticsPdf("full")}
+                    disabled={!!pdfExportingSection}
+                    data-pdf-export-hide
+                    sx={{ color: mode === 'dark' ? 'white' : undefined, borderColor: mode === 'dark' ? 'rgba(255,255,255,0.5)' : undefined }}
+                  >
+                    Download full report
+                  </Button>
+                )}
               </Box>
             </Box>
 
@@ -1217,9 +1340,25 @@ const RestaurantDashboard = () => {
                 <CircularProgress />
               </Box>
             ) : analytics ? (
-              <>
+              <Box ref={analyticsFullRef}>
                 {/* Revenue Cards */}
-                <Grid container spacing={3} sx={{ mb: 4 }}>
+                <Box ref={analyticsRevenueCardsRef} sx={{ mb: 4 }}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+                    <Typography variant="h6" sx={{ fontWeight: 600, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
+                      Revenue Summary
+                    </Typography>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleDownloadAnalyticsPdf("revenue")}
+                      title="Download as PDF"
+                      disabled={!!pdfExportingSection}
+                      sx={{ color: mode === 'dark' ? 'rgba(255,255,255,0.8)' : 'primary.main' }}
+                      data-pdf-export-hide
+                    >
+                      {pdfExportingSection === "revenue" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
+                    </IconButton>
+                  </Box>
+                <Grid container spacing={3}>
                   <Grid item xs={12} sm={6} md={3}>
                     <Card sx={{ 
                       background: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)", 
@@ -1283,14 +1422,20 @@ const RestaurantDashboard = () => {
                     </Card>
                   </Grid>
                 </Grid>
+                </Box>
 
                 {/* Popular Items */}
                 {analytics.popularItems && analytics.popularItems.length > 0 && (
-                  <Card sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
+                  <Card ref={analyticsPopularItemsRef} sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                     <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
-                        Popular Items
-                      </Typography>
+                      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
+                          Popular Items
+                        </Typography>
+                        <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("popularItems")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: mode === 'dark' ? 'rgba(255,255,255,0.8)' : 'primary.main' }} data-pdf-export-hide>
+                          {pdfExportingSection === "popularItems" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
+                        </IconButton>
+                      </Box>
                       <TableContainer>
                         <Table>
                           <TableHead>
@@ -1324,11 +1469,16 @@ const RestaurantDashboard = () => {
 
                 {/* Payment Methods Breakdown */}
                 {analytics.paymentMethods && analytics.paymentMethods.length > 0 && (
-                  <Card sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
+                  <Card ref={analyticsPaymentMethodsRef} sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                     <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
-                        Payment Methods
-                      </Typography>
+                      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
+                          Payment Methods
+                        </Typography>
+                        <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("paymentMethods")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: mode === 'dark' ? 'rgba(255,255,255,0.8)' : 'primary.main' }} data-pdf-export-hide>
+                          {pdfExportingSection === "paymentMethods" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
+                        </IconButton>
+                      </Box>
                       <Grid container spacing={2}>
                         {analytics.paymentMethods.map((method) => (
                           <Grid item xs={12} sm={6} md={4} key={method.paymentMode}>
@@ -1340,7 +1490,7 @@ const RestaurantDashboard = () => {
                                 <Typography variant="h6" color="primary">
                                   ₹{(method.totalAmount || 0).toFixed(2)}
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                                <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                   {method.count || 0} transactions
                                 </Typography>
                               </CardContent>
@@ -1354,11 +1504,16 @@ const RestaurantDashboard = () => {
 
                 {/* Order Status Breakdown */}
                 {analytics.statusBreakdown && analytics.statusBreakdown.length > 0 && (
-                  <Card sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
+                  <Card ref={analyticsStatusBreakdownRef} sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                     <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
-                        Order Status Breakdown
-                      </Typography>
+                      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
+                          Order Status Breakdown
+                        </Typography>
+                        <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("statusBreakdown")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: mode === 'dark' ? 'rgba(255,255,255,0.8)' : 'primary.main' }} data-pdf-export-hide>
+                          {pdfExportingSection === "statusBreakdown" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
+                        </IconButton>
+                      </Box>
                       <Grid container spacing={2}>
                         {analytics.statusBreakdown.map((status) => (
                           <Grid item xs={12} sm={6} md={4} key={status.status}>
@@ -1381,7 +1536,7 @@ const RestaurantDashboard = () => {
 
                 {/* Today's Total Sales / End Date Sales - Prominent Display */}
                 {dailyRevenue && dailyRevenue.todayTotalSales !== undefined && (
-                  <Card sx={{ 
+                  <Card ref={analyticsTodaySalesRef} sx={{ 
                     mb: 3, 
                     background: "linear-gradient(135deg, #10B981 0%, #059669 100%)", 
                     color: "white",
@@ -1399,20 +1554,30 @@ const RestaurantDashboard = () => {
                             ₹{dailyRevenue.todayTotalSales.toFixed(2)}
                           </Typography>
                         </Box>
-                        <Typography sx={{ fontSize: 60, opacity: 0.3, color: "white", fontWeight: 300, lineHeight: 1 }}>
-                          ₹
-                        </Typography>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                          <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("todaySales")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: "rgba(255,255,255,0.9)" }} data-pdf-export-hide>
+                            {pdfExportingSection === "todaySales" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
+                          </IconButton>
+                          <Typography sx={{ fontSize: 60, opacity: 0.3, color: "white", fontWeight: 300, lineHeight: 1 }}>
+                            ₹
+                          </Typography>
+                        </Box>
                       </Box>
                     </CardContent>
                   </Card>
                 )}
 
                 {/* Day-by-Day Revenue Table */}
-                <Card sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
+                <Card ref={analyticsDailyRevenueRef} sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                   <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
-                      Day-by-Day Revenue
-                    </Typography>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
+                        Day-by-Day Revenue
+                      </Typography>
+                      <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("dailyRevenue")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: mode === 'dark' ? 'rgba(255,255,255,0.8)' : 'primary.main' }} data-pdf-export-hide>
+                        {pdfExportingSection === "dailyRevenue" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
+                      </IconButton>
+                    </Box>
                     {dailyRevenueLoading ? (
                       <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
                         <CircularProgress />
@@ -1472,11 +1637,16 @@ const RestaurantDashboard = () => {
                 </Card>
 
                 {/* Day-by-Day Food Item Sales */}
-                <Card sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
+                <Card ref={analyticsDailyFoodSalesRef} sx={{ mb: 3, bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                   <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
-                      Day-by-Day Food Item Sales
-                    </Typography>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
+                        Day-by-Day Food Item Sales
+                      </Typography>
+                      <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("dailyFoodSales")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: mode === 'dark' ? 'rgba(255,255,255,0.8)' : 'primary.main' }} data-pdf-export-hide>
+                        {pdfExportingSection === "dailyFoodSales" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
+                      </IconButton>
+                    </Box>
                     {dailyFoodSalesLoading ? (
                       <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
                         <CircularProgress />
@@ -1537,13 +1707,18 @@ const RestaurantDashboard = () => {
 
                 {/* Today's Food Sales Summary / End Date Food Sales Summary */}
                 {dailyFoodSales && dailyFoodSales.todayFoodSales && dailyFoodSales.todayFoodSales.length > 0 && (
-                  <Card sx={{ bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
+                  <Card ref={analyticsTodayFoodSummaryRef} sx={{ bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.8)" : "rgba(255, 255, 255, 0.9)" }}>
                     <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
-                        {dateRangeMode === "custom" && selectedDate !== new Date().toISOString().split('T')[0]
-                          ? "Selected Date Food Sales Summary"
-                          : "Today's Food Sales Summary"}
-                      </Typography>
+                      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600, color: mode === 'dark' ? "white" : "#1a1a1a" }}>
+                          {dateRangeMode === "custom" && selectedDate !== new Date().toISOString().split('T')[0]
+                            ? "Selected Date Food Sales Summary"
+                            : "Today's Food Sales Summary"}
+                        </Typography>
+                        <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("todayFoodSummary")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: mode === 'dark' ? 'rgba(255,255,255,0.8)' : 'primary.main' }} data-pdf-export-hide>
+                          {pdfExportingSection === "todayFoodSummary" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
+                        </IconButton>
+                      </Box>
                       <TableContainer>
                         <Table>
                           <TableHead>
@@ -1593,7 +1768,7 @@ const RestaurantDashboard = () => {
                     </CardContent>
                   </Card>
                 )}
-              </>
+              </Box>
             ) : (
               <Alert severity="info">No analytics data available</Alert>
             )}

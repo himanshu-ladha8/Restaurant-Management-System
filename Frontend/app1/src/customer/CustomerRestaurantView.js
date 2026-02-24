@@ -967,7 +967,7 @@ const CustomerRestaurantView = () => {
                           <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                             Table {tableNumber}
                           </Typography>
-                          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.7)", mb: 2, fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 2, fontWeight: 300 }}>
                             Capacity: {capacity} {capacity === 1 ? "person" : "people"}
                           </Typography>
                           <Chip label="Available" color="success" sx={{ mb: 2 }} />
@@ -1039,7 +1039,7 @@ const CustomerRestaurantView = () => {
                             size="small"
                           />
                         </Box>
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 1, fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 1, fontWeight: 300 }}>
                           Capacity: {capacity}
                         </Typography>
                         <Button
@@ -1112,7 +1112,7 @@ const CustomerRestaurantView = () => {
               <Card>
                 <CardContent sx={{ textAlign: "center", py: 8 }}>
                   <RestaurantMenu sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-                  <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+                  <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
                     No meals available
                   </Typography>
                 </CardContent>
@@ -1328,7 +1328,7 @@ const CustomerRestaurantView = () => {
                             <Chip label={category} size="small" sx={{ mb: 1 }} />
                           )}
                           {description && (
-                            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.7)", mb: 2, fontWeight: 300 }}>
+                            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 2, fontWeight: 300 }}>
                               {description}
                             </Typography>
                           )}
@@ -1368,10 +1368,10 @@ const CustomerRestaurantView = () => {
               <Card>
                 <CardContent sx={{ textAlign: "center", py: 8 }}>
                   <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-                  <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+                  <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
                     No orders found
                   </Typography>
-                  <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                  <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                     Your orders for this restaurant will appear here
                   </Typography>
                 </CardContent>
@@ -1395,7 +1395,7 @@ const CustomerRestaurantView = () => {
                               <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                                 Order #{orderId}
                               </Typography>
-                              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                 Table {tableNumber} • {createdAt ? formatDateTime(createdAt) : "N/A"}
                               </Typography>
                             </Box>
@@ -1482,7 +1482,7 @@ const CustomerRestaurantView = () => {
             <Box sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Box sx={{ textAlign: "center" }}>
                 <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-                <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                   Your cart is empty
                 </Typography>
               </Box>
@@ -1568,7 +1568,7 @@ const CustomerRestaurantView = () => {
         </DialogTitle>
         <DialogContent>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", py: 2 }}>
-            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.7)", mb: 2, textAlign: "center", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 2, textAlign: "center", fontWeight: 300 }}>
               Scan this QR code to view the menu for this table
             </Typography>
             {qrDialog.qrUrl && (
@@ -1585,7 +1585,7 @@ const CustomerRestaurantView = () => {
                 <QRCodeSVG value={qrDialog.qrUrl} size={256} />
               </Box>
             )}
-            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.7)", mt: 2, textAlign: "center", wordBreak: "break-all", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mt: 2, textAlign: "center", wordBreak: "break-all", fontWeight: 300 }}>
               {qrDialog.qrUrl}
             </Typography>
             <Button

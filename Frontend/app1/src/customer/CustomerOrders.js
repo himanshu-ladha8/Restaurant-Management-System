@@ -311,7 +311,7 @@ const CustomerOrders = () => {
         <Grid item xs={12} sm={6} md={4}>
           <Card>
             <CardContent>
-              <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 Orders
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 700 }}>
@@ -323,7 +323,7 @@ const CustomerOrders = () => {
         <Grid item xs={12} sm={6} md={4}>
           <Card>
             <CardContent>
-              <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="subtitle2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 Total Spent
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 700 }}>
@@ -342,10 +342,10 @@ const CustomerOrders = () => {
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
             <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               No orders found
             </Typography>
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
               Your order history will appear here
             </Typography>
           </CardContent>
@@ -373,18 +373,18 @@ const CustomerOrders = () => {
                         <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", mb: 1 }}>
                           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                             <Restaurant fontSize="small" color="action" />
-                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                               {restaurantName}
                             </Typography>
                           </Box>
                           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                             <TableRestaurant fontSize="small" color="action" />
-                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                               Table {tableNumber}
                             </Typography>
                           </Box>
                         </Box>
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {createdAt ? formatDateTime(createdAt) : "N/A"}
                         </Typography>
                       </Box>
@@ -410,7 +410,7 @@ const CustomerOrders = () => {
                       </AccordionSummary>
                       <AccordionDetails>
                         {orderItems.length === 0 ? (
-                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                             No items in this order.
                           </Typography>
                         ) : (
@@ -451,10 +451,10 @@ const CustomerOrders = () => {
                     <Box>
                       {order.latestPayment ? (
                         <>
-                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} display="block">
+                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} display="block">
                             Payment: {order.latestPayment.paymentMode || order.latestPayment.PaymentMode || "N/A"}
                           </Typography>
-                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} display="block">
+                          <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} display="block">
                             Status: {orderStatus === "Cancelled" 
                               ? (order.latestPayment.paymentStatus === "Refunded" || order.latestPayment.PaymentStatus === "Refunded" 
                                   ? "Refunded" 
@@ -462,13 +462,13 @@ const CustomerOrders = () => {
                               : (order.latestPayment.paymentStatus || order.latestPayment.PaymentStatus || "N/A")}
                           </Typography>
                           {(order.latestPayment.transactionId || order.latestPayment.TransactionId) && (
-                            <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} display="block">
+                            <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} display="block">
                               Txn ID: {order.latestPayment.transactionId || order.latestPayment.TransactionId}
                             </Typography>
                           )}
                         </>
                       ) : (
-                        <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
                           {orderStatus === "Cancelled" ? "No payment was made for this cancelled order." : "No payment recorded yet."}
                         </Typography>
                       )}

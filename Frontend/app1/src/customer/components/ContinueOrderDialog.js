@@ -59,7 +59,7 @@ const ContinueOrderDialog = ({ open, onYes, onNo, orderId, totalAmount }) => {
           <Typography 
             variant="body2" 
             sx={{ 
-              color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+              color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
               mb: 1 
             }}
           >
@@ -68,7 +68,7 @@ const ContinueOrderDialog = ({ open, onYes, onNo, orderId, totalAmount }) => {
           <Typography 
             variant="body2" 
             sx={{ 
-              color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
+              color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
             }}
           >
             • <strong>No:</strong> Proceed to payment for this order now.

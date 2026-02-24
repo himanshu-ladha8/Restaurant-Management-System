@@ -69,7 +69,7 @@ const CompleteRestaurantDetails = () => {
               <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
                 Complete Restaurant Details
               </Typography>
-              <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.7)", fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
                 Please provide your restaurant information to complete registration
               </Typography>
             </Box>

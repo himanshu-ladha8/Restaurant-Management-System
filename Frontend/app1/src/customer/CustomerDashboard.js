@@ -22,6 +22,7 @@ import {
   Payment,
   ShoppingCart,
   History,
+  EventAvailable,
 } from "@mui/icons-material";
 
 const CustomerDashboard = () => {
@@ -40,6 +41,7 @@ const CustomerDashboard = () => {
 
   const navLinks = [
     { path: "/customer-restaurants", label: "Restaurants" },
+    { path: "/customer-reservations", label: "Reservations" },
     { path: "/customer-orders", label: "My Orders" },
     { path: "/payment-history", label: "Payment History" },
   ];
@@ -133,7 +135,7 @@ const CustomerDashboard = () => {
   return (
     <Layout title="Customer Dashboard" navLinks={navLinks}>
       <Box>
-        {/* Welcome Section */}
+        {/* Welcome Section — high contrast and text shadow for visibility on background */}
         <Box sx={{ 
           mb: 4, 
           textAlign: "center",
@@ -145,18 +147,29 @@ const CustomerDashboard = () => {
         }}>
           <Typography 
             variant="h4" 
-            fontWeight={700} 
             mb={1}
             sx={{
-              color: mode === 'dark' ? 'white' : '#1a1a1a',
-              fontWeight: 300,
+              color: mode === 'dark' ? '#ffffff' : '#1a1a1a',
+              fontWeight: 600,
               letterSpacing: '0.05em',
               fontFamily: "'Playfair Display', 'Georgia', serif",
+              textShadow: mode === 'dark' 
+                ? '0 1px 3px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)' 
+                : '0 1px 2px rgba(255,255,255,0.9), 0 2px 4px rgba(0,0,0,0.06)',
             }}
           >
             Welcome back, {user?.fullName || user?.FullName || user?.email?.split("@")[0] || "Customer"} 👋
           </Typography>
-          <Typography sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", variant: "body1", fontWeight: 300 }}>
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.82)", 
+              fontWeight: 500,
+              textShadow: mode === 'dark' 
+                ? '0 1px 2px rgba(0,0,0,0.4)' 
+                : '0 1px 2px rgba(255,255,255,0.8)',
+            }}
+          >
             Your order statistics and quick actions
           </Typography>
         </Box>
@@ -182,7 +195,14 @@ const CustomerDashboard = () => {
                 },
               }}
             />
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: mode === 'dark' ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.85)", 
+                fontWeight: 500,
+                textShadow: mode === 'dark' ? '0 1px 2px rgba(0,0,0,0.4)' : '0 1px 2px rgba(255,255,255,0.9)',
+              }}
+            >
               Loading your dashboard...
             </Typography>
           </Box>
@@ -436,6 +456,32 @@ const CustomerDashboard = () => {
                         Browse Restaurants
                       </Button>
                       <Button
+                        variant="contained"
+                        fullWidth
+                        startIcon={<EventAvailable />}
+                        onClick={() => navigate("/customer-restaurants", { state: { fromReservation: true } })}
+                        sx={{ 
+                          py: 1.5, 
+                          justifyContent: "flex-start",
+                          borderRadius: "4px",
+                          textTransform: "none",
+                          fontWeight: 600,
+                          background: mode === 'dark' ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.08)",
+                          color: mode === 'dark' ? "white" : "#1a1a1a",
+                          border: mode === 'dark' ? "1px solid rgba(255, 255, 255, 0.2)" : "1px solid rgba(0, 0, 0, 0.12)",
+                          boxShadow: mode === 'dark' ? "0 4px 20px rgba(0, 0, 0, 0.3)" : "0 4px 20px rgba(0, 0, 0, 0.1)",
+                          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                          "&:hover": {
+                            transform: "translateY(-2px)",
+                            boxShadow: mode === 'dark' ? "0 8px 20px rgba(102, 126, 234, 0.4)" : "0 8px 20px rgba(0, 0, 0, 0.15)",
+                            background: mode === 'dark' ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.12)",
+                            border: mode === 'dark' ? "1px solid rgba(255, 255, 255, 0.3)" : "1px solid rgba(0, 0, 0, 0.2)",
+                          },
+                        }}
+                      >
+                        Do a reservation
+                      </Button>
+                      <Button
                         variant="outlined"
                         fullWidth
                         startIcon={<Receipt />}
@@ -566,7 +612,7 @@ const CustomerDashboard = () => {
                                   <Typography fontWeight={600}>
                                     Order #{order.orderId || order.OrderId}
                                   </Typography>
-                                  <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                                  <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                     {order.restaurantName || "Restaurant"}
                                   </Typography>
                                 </Box>
@@ -601,7 +647,7 @@ const CustomerDashboard = () => {
                     ) : (
                       <Box sx={{ textAlign: "center", py: 4 }}>
                         <Receipt sx={{ fontSize: 60, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
-                        <Typography sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           No orders yet
                         </Typography>
                         <Button

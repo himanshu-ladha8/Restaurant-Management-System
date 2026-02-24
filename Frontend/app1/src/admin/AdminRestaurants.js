@@ -227,10 +227,10 @@ const AdminRestaurants = () => {
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
             <RestaurantIcon sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }} gutterBottom>
+            <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               No restaurants found
             </Typography>
-            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", mb: 3, fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 3, fontWeight: 300 }}>
               {searchTerm || statusFilter !== "all"
                 ? "No restaurants match your search criteria"
                 : "Add your first restaurant to get started"}
@@ -270,7 +270,7 @@ const AdminRestaurants = () => {
                     {address && (
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                         <LocationOn fontSize="small" color="action" />
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {address}
                         </Typography>
                       </Box>
@@ -279,7 +279,7 @@ const AdminRestaurants = () => {
                     {phone && (
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
                         <Phone fontSize="small" color="action" />
-                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                        <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {phone}
                         </Typography>
                       </Box>

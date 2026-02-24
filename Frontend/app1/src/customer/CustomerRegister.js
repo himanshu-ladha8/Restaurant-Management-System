@@ -146,7 +146,7 @@ const CustomerRegister = () => {
               >
                 Customer Registration
               </Typography>
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 Create your account to start ordering
               </Typography>
             </Box>
@@ -313,7 +313,7 @@ const CustomerRegister = () => {
               </Button>
 
               <Box sx={{ textAlign: "center" }}>
-                <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                   Already have an account?{" "}
                   <MuiLink 
                     component={Link} 

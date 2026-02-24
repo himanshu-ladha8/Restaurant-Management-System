@@ -151,7 +151,7 @@ const Payment = () => {
               <Typography variant="h5" fontWeight={700} gutterBottom>
                 Payment for Order #{order.orderId}
               </Typography>
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                 {order.restaurantName} - Table {order.tableNumber}
               </Typography>
             </Box>
@@ -211,7 +211,7 @@ const Payment = () => {
                             <Icon sx={{ color: method.color, fontSize: 32 }} />
                             <Box>
                               <Typography fontWeight={600}>{method.label}</Typography>
-                              <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", fontWeight: 300 }}>
+                              <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                                 {method.description}
                               </Typography>
                             </Box>
