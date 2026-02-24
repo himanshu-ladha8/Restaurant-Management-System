@@ -341,7 +341,7 @@ const CustomerOrders = () => {
       ) : orders.length === 0 ? (
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
-            <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+            <ShoppingCart sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
             <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               No orders found
             </Typography>
@@ -468,7 +468,7 @@ const CustomerOrders = () => {
                           )}
                         </>
                       ) : (
-                        <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+                        <Typography variant="caption" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                           {orderStatus === "Cancelled" ? "No payment was made for this cancelled order." : "No payment recorded yet."}
                         </Typography>
                       )}

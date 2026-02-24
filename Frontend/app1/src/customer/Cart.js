@@ -388,7 +388,7 @@ const Cart = () => {
             }}
           >
             <CardContent sx={{ textAlign: "center", py: 6 }}>
-              <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+              <ShoppingCart sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
               <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
                 Your cart is empty
               </Typography>
@@ -422,11 +422,11 @@ const Cart = () => {
               sx={{ 
                 mb: 3,
                 borderRadius: "4px",
-                bgcolor: "rgba(255, 255, 255, 0.9)",
+                bgcolor: mode === 'dark' ? "rgba(26, 26, 26, 0.9)" : "rgba(255, 255, 255, 0.9)",
                 backdropFilter: "blur(20px) saturate(180%)",
                 WebkitBackdropFilter: "blur(20px) saturate(180%)",
                 boxShadow: "0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04)",
-                border: "1px solid rgba(255, 255, 255, 0.5)",
+                border: mode === 'dark' ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.5)",
                 transition: "all 0.3s",
               }}
             >

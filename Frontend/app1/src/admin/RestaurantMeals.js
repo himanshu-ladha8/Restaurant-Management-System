@@ -573,7 +573,7 @@ const RestaurantMeals = () => {
       ) : meals.length === 0 ? (
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
-            <RestaurantMenu sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+            <RestaurantMenu sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
             <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               No meals found
             </Typography>
@@ -588,7 +588,7 @@ const RestaurantMeals = () => {
       ) : filteredMeals.length === 0 ? (
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
-            <RestaurantMenu sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+            <RestaurantMenu sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
             <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               No meals match your filters
             </Typography>

@@ -224,7 +224,7 @@ const CustomerReservations = () => {
             {reservations.length === 0 ? (
               <Card sx={{ borderRadius: "16px" }}>
                 <CardContent sx={{ textAlign: "center", py: 6 }}>
-                  <CalendarToday sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+                  <CalendarToday sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
                   <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300, mb: 2 }}>
                     No reservations yet
                   </Typography>

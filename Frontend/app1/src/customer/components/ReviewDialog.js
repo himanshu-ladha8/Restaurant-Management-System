@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import {  Dialog,  DialogTitle,  DialogContent,  DialogActions,  Button,  Typography,  Box,  TextField,  Rating,  IconButton,  Alert,  CircularProgress,} from "@mui/material";
 import { Close, Star } from "@mui/icons-material";
 import { createOrUpdateReview, getMyReview } from "../../services/ReviewService";
+import { useThemeMode } from "../../context/ThemeContext";
 
 const ReviewDialog = ({ open, onClose, restaurantId, restaurantName, onReviewSubmitted }) => {
+  const { mode } = useThemeMode();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
@@ -108,7 +110,7 @@ const ReviewDialog = ({ open, onClose, restaurantId, restaurantName, onReviewSub
       </DialogTitle>
       <DialogContent>
         <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 2, fontWeight: 300 }}>
+          <Typography variant="body2" sx={{ color: "text.primary", mb: 2, fontWeight: 300 }}>
             Restaurant: <strong>{restaurantName || "Restaurant"}</strong>
           </Typography>
           {existingReview && (
@@ -134,7 +136,7 @@ const ReviewDialog = ({ open, onClose, restaurantId, restaurantName, onReviewSub
               sx={{ fontSize: "2rem" }}
             />
             {rating > 0 && (
-              <Typography variant="body1" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+              <Typography variant="body1" sx={{ color: "text.primary", fontWeight: 300 }}>
                 {rating} {rating === 1 ? "star" : "stars"}
               </Typography>
             )}

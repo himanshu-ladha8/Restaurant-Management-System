@@ -284,7 +284,7 @@ const CustomerRestaurants = () => {
                     if (searchTerm.trim()) params.append("search", searchTerm.trim());
                     window.history.pushState({}, "", `/customer-restaurants${params.toString() ? `?${params.toString()}` : ""}`);
                   }}
-                  sx={{ color: "#FF6B35", ml: 0.5 }}
+                  sx={{ color: "primary.main", ml: 0.5 }}
                 >
                   <Clear fontSize="small" />
                 </IconButton>
@@ -368,7 +368,7 @@ const CustomerRestaurants = () => {
               },
             }}
           />
-          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
             Loading restaurants...
           </Typography>
         </Box>
@@ -380,7 +380,7 @@ const CustomerRestaurants = () => {
           }}
         >
           <CardContent sx={{ textAlign: "center", py: 8 }}>
-            <RestaurantIcon sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+            <RestaurantIcon sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
             <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
               {searchTerm || locationFilter 
                 ? `No restaurants found${searchTerm ? ` matching "${searchTerm}"` : ""}${locationFilter ? ` in ${locationFilter}` : ""}`

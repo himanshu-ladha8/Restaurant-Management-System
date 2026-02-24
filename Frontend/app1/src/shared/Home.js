@@ -424,7 +424,7 @@ const Home = () => {
       </Box>
 
       {/* Service Cards Section */}
-      <Box sx={{ bgcolor: mode === 'dark' ? "#0a0a0a" : "#f5f5f5", py: { xs: 8, sm: 10 }, px: { xs: 2, sm: 3 } }}>
+      <Box sx={{ bgcolor: "background.default", py: { xs: 8, sm: 10 }, px: { xs: 2, sm: 3 } }}>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: { xs: 6, md: 8 } }}>
             <Typography
@@ -750,7 +750,7 @@ const Home = () => {
 
       {/* Food Categories Section */}
       <Box sx={{ 
-        background: mode === 'dark' ? "#0a0a0a" : "#ffffff",
+        bgcolor: "background.default",
         py: { xs: 8, sm: 10 },
         position: "relative",
       }}>
@@ -829,7 +829,7 @@ const Home = () => {
       </Box>
 
       {/* Restaurant Listings Section */}
-      <Box sx={{ bgcolor: mode === 'dark' ? "#0a0a0a" : "#f5f5f5", py: { xs: 8, sm: 10 } }}>
+      <Box sx={{ bgcolor: "background.default", py: { xs: 8, sm: 10 } }}>
         <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
           <Box sx={{ 
             display: "flex", 
@@ -1056,8 +1056,8 @@ const Home = () => {
         fullWidth
         PaperProps={{
           sx: {
-            bgcolor: mode === 'dark' ? "#1a1a1a" : "#ffffff",
-            color: mode === 'dark' ? "white" : "#1a1a1a",
+            bgcolor: "background.paper",
+            color: "text.primary",
             border: mode === 'dark' ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(0, 0, 0, 0.08)",
           }
         }}
@@ -1183,7 +1183,7 @@ const Home = () => {
       </Dialog>
 
       {/* Footer */}
-      <Box sx={{ bgcolor: mode === 'dark' ? "#1a1a1a" : "#ffffff", color: mode === 'dark' ? "white" : "#1a1a1a", py: 6, borderTop: mode === 'dark' ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(0, 0, 0, 0.08)" }}>
+      <Box sx={{ bgcolor: "background.paper", color: "text.primary", py: 6, borderTop: 1, borderColor: "divider" }}>
         <Container maxWidth="lg">
           <Grid container spacing={4}>
             <Grid item xs={12} md={4}>

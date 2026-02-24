@@ -63,7 +63,7 @@ function AppContent() {
           <Route path="/customer-register" element={<CustomerRegister />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/complete-restaurant-details" element={<ProtectedRoute requiredRole="RestaurantAdmin"><CompleteRestaurantDetails /></ProtectedRoute>} />
+          <Route path="/complete-restaurant-details" element={<CompleteRestaurantDetails />} />
           <Route path="/admin-dashboard" element={<ProtectedRoute requiredRole="Admin"><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin-restaurants" element={<ProtectedRoute requiredRole="Admin"><AdminRestaurants /></ProtectedRoute>} />
           <Route path="/admin-restaurant-details/:restaurantId" element={<ProtectedRoute requiredRole="Admin"><AdminRestaurantDetails /></ProtectedRoute>} />

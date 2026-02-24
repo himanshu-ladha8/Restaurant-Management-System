@@ -4,10 +4,14 @@ import {  Box,  Button,  Card,  CardContent,  Typography,  Grid,  Chip,  Circula
 import {  ArrowBack,  Restaurant as RestaurantIcon,  LocationOn,  Phone,  Block,  CheckCircle,  TableRestaurant,  Person,  Visibility,} from "@mui/icons-material";
 import {  getRestaurant,  getAdminRestaurantMeals,  getAdminRestaurantTables,  disableRestaurantMeal,  enableRestaurantMeal,  notifyRestaurantAdmin,} from "../services/RestaurantService";
 import Layout from "../shared/components/Layout";
+import { useThemeMode } from "../context/ThemeContext";
 
 const AdminRestaurantDetails = () => {
   const { restaurantId } = useParams();
   const navigate = useNavigate();
+  const { mode } = useThemeMode();
+  const textColor = mode === "dark" ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)";
+  const iconColor = mode === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)";
   const [restaurant, setRestaurant] = useState(null);
   const [meals, setMeals] = useState([]);
   const [tables, setTables] = useState([]);
@@ -156,7 +160,7 @@ const AdminRestaurantDetails = () => {
       <Layout title="Restaurant Details" backPath="/admin-restaurants" navLinks={navLinks}>
         <Card>
           <CardContent sx={{ textAlign: "center", py: 8 }}>
-            <Typography variant="h6" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+            <Typography variant="h6" sx={{ color: "text.primary", fontWeight: 300 }}>
               Restaurant not found
             </Typography>
           </CardContent>
@@ -188,7 +192,7 @@ const AdminRestaurantDetails = () => {
               {restaurant.address && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
                   <LocationOn fontSize="small" color="action" />
-                  <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+                  <Typography variant="body2" sx={{ color: "text.primary", fontWeight: 300 }}>
                     {restaurant.address}
                   </Typography>
                 </Box>
@@ -196,7 +200,7 @@ const AdminRestaurantDetails = () => {
               {restaurant.phone && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <Phone fontSize="small" color="action" />
-                  <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+                  <Typography variant="body2" sx={{ color: "text.primary", fontWeight: 300 }}>
                     {restaurant.phone}
                   </Typography>
                 </Box>
@@ -221,14 +225,14 @@ const AdminRestaurantDetails = () => {
             <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
               Restaurant Menu
             </Typography>
-            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 3, fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: "text.secondary", mb: 3, fontWeight: 300 }}>
               You can disable menu items that should not be sold. Changes will be notified to the restaurant admin.
             </Typography>
 
             {meals.length === 0 ? (
               <Box sx={{ textAlign: "center", py: 4 }}>
-                <RestaurantIcon sx={{ fontSize: 60, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-                <Typography variant="body1" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+                <RestaurantIcon sx={{ fontSize: 60, color: iconColor, mb: 2 }} />
+                <Typography variant="body1" sx={{ color: "text.primary", fontWeight: 300 }}>
                   No menu items found
                 </Typography>
               </Box>
@@ -258,7 +262,7 @@ const AdminRestaurantDetails = () => {
                           <Chip label={meal.category} size="small" sx={{ mb: 1 }} variant="outlined" />
                         )}
                         {meal.description && (
-                          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 1, fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: "text.secondary", mb: 1, fontWeight: 300 }}>
                             {meal.description}
                           </Typography>
                         )}
@@ -305,14 +309,14 @@ const AdminRestaurantDetails = () => {
             <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
               Restaurant Tables
             </Typography>
-            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 3, fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: "text.secondary", mb: 3, fontWeight: 300 }}>
               View table status, capacity, and customer information.
             </Typography>
 
             {tables.length === 0 ? (
               <Box sx={{ textAlign: "center", py: 4 }}>
-                <TableRestaurant sx={{ fontSize: 60, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-                <Typography variant="body1" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+                <TableRestaurant sx={{ fontSize: 60, color: iconColor, mb: 2 }} />
+                <Typography variant="body1" sx={{ color: "text.primary", fontWeight: 300 }}>
                   No tables found
                 </Typography>
               </Box>
@@ -360,12 +364,12 @@ const AdminRestaurantDetails = () => {
                               <Typography variant="body2" sx={{ fontWeight: 600 }}>
                                 {table.currentCustomer.customerName}
                               </Typography>
-                              <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+                              <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 300 }}>
                                 Order #{table.currentCustomer.orderId} - {table.currentCustomer.orderStatus}
                               </Typography>
                             </Box>
                           ) : (
-                            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+                            <Typography variant="body2" sx={{ color: "text.secondary", fontWeight: 300 }}>
                               No customer
                             </Typography>
                           )}

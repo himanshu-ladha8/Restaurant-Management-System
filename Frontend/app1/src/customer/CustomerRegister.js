@@ -78,7 +78,7 @@ const CustomerRegister = () => {
       
       const response = await register(registrationData);
       
-      alert("Registration successful! Please login.");
+      alert("Registration successful! A confirmation email has been sent to your inbox. Please login.");
       navigate("/customer-login");
     } catch (err) {
       setError(err.response?.data || "Registration failed");
@@ -105,7 +105,7 @@ const CustomerRegister = () => {
             boxShadow: mode === 'dark' ? "0 24px 64px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.3)" : "0 24px 64px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.08)",
             transition: "all 0.3s",
             animation: 'fadeIn 0.6s ease-in',
-            bgcolor: mode === 'dark' ? 'rgba(26, 26, 26, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+            bgcolor: "background.paper",
             backdropFilter: 'blur(30px) saturate(180%)',
             WebkitBackdropFilter: 'blur(30px) saturate(180%)',
             border: mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
@@ -158,7 +158,7 @@ const CustomerRegister = () => {
                   mb: 3,
                   borderRadius: "12px",
                   animation: 'slideIn 0.3s ease-out',
-                  bgcolor: mode === 'dark' ? 'rgba(26, 26, 26, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+                  bgcolor: "background.paper",
                   border: mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
                   color: mode === 'dark' ? '#FFFFFF' : '#1a1a1a',
                 }}

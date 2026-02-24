@@ -6,6 +6,7 @@ import api from "../api/axiosConfig";
 import { AuthContext } from "../context/AuthContext";
 import { useThemeMode } from "../context/ThemeContext";
 import { createOrder, payOrder, cancelOrder, getOrder } from "../services/OrderService";
+import ThemeToggle from "../shared/components/ThemeToggle";
 import PaymentDialog from "./components/PaymentDialog";
 import ContinueOrderDialog from "./components/ContinueOrderDialog";
 import { CheckCircle, Payment } from "@mui/icons-material";
@@ -542,8 +543,22 @@ const TableMenu = () => {
     }
   };
 
+  // Restaurant-themed background image; overlay keeps content readable in light/dark
+  const bgImageUrl = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920";
+  const overlayLight = "rgba(252, 251, 249, 0.88)";
+  const overlayDark = "rgba(12, 12, 12, 0.92)";
+
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        backgroundImage: `linear-gradient(${mode === "dark" ? overlayDark : overlayLight}, ${mode === "dark" ? overlayDark : overlayLight}), url("${bgImageUrl}")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       {/* Pending Order Banner */}
       {pendingOrder && (
         <Paper
@@ -589,22 +604,24 @@ const TableMenu = () => {
         </Paper>
       )}
 
-      <AppBar position="static" elevation={0} sx={{ bgcolor: "primary.main" }}>
+      <AppBar position="static" elevation={0}>
         <Toolbar sx={{ px: { xs: 1, sm: 2 } }}>
-          <Typography 
-            variant="h6" 
-            component="div" 
-            sx={{ 
-              flexGrow: 1, 
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              flexGrow: 1,
               fontWeight: 600,
               fontSize: { xs: "0.875rem", sm: "1.25rem" },
               overflow: "hidden",
               textOverflow: "ellipsis",
-              whiteSpace: "nowrap"
+              whiteSpace: "nowrap",
+              color: "text.primary",
             }}
           >
             {table ? `Table ${table.tableNumber} - Menu` : "Restaurant Menu"}
           </Typography>
+          <ThemeToggle />
           <Badge badgeContent={cart.length} color="error">
             <Button
               color="inherit"
@@ -657,11 +674,11 @@ const TableMenu = () => {
         ) : filteredMeals.length === 0 ? (
           <Card>
             <CardContent sx={{ textAlign: "center", py: 8 }}>
-              <RestaurantMenu sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-              <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
+              <RestaurantMenu sx={{ fontSize: 80, color: "text.disabled", mb: 2 }} />
+              <Typography variant="h6" sx={{ color: "text.primary", fontWeight: 300 }} gutterBottom>
                 No meals available
               </Typography>
-              <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 3, fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: "text.secondary", mb: 3, fontWeight: 300 }}>
                 {searchTerm || categoryFilter !== "all"
                   ? "No meals match your search criteria"
                   : "This restaurant currently has no items on the menu."}
@@ -674,10 +691,10 @@ const TableMenu = () => {
         ) : (
           <>
             <Box sx={{ mb: 4, textAlign: "center" }}>
-              <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
+              <Typography variant="h4" sx={{ fontWeight: 600, mb: 1, color: "text.primary" }}>
                 Our Menu
               </Typography>
-              <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 3, fontWeight: 300 }}>
+              <Typography variant="body1" sx={{ color: "text.secondary", mb: 3, fontWeight: 300 }}>
                 Scan the QR code at your table to view this menu
               </Typography>
               {table && (
@@ -870,7 +887,7 @@ const TableMenu = () => {
                           <Chip label={category} size="small" sx={{ mb: 1 }} />
                         )}
                         {description && (
-                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 2, fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: "text.secondary", mb: 2, fontWeight: 300 }}>
                             {description}
                           </Typography>
                         )}
@@ -915,8 +932,8 @@ const TableMenu = () => {
           {cart.length === 0 ? (
             <Box sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Box sx={{ textAlign: "center" }}>
-                <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
-                <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
+                <ShoppingCart sx={{ fontSize: 80, color: "text.disabled", mb: 2 }} />
+                <Typography variant="body1" sx={{ color: "text.secondary", fontWeight: 300 }}>
                   Your cart is empty
                 </Typography>
               </Box>

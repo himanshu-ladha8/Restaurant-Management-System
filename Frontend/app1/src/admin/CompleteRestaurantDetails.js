@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {  Box,  Container,  Card,  CardContent,  TextField,  Button,  Typography,  Alert,  CircularProgress,} from "@mui/material";
 import { Restaurant } from "@mui/icons-material";
 import { completeRestaurantSetup } from "../services/RestaurantService";
+import { AuthContext } from "../context/AuthContext";
 
 const CompleteRestaurantDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const userId = location.state?.userId;
+  const { user } = useContext(AuthContext);
+  // userId from registration (state) or from logged-in user (after login)
+  const userId = location.state?.userId ?? user?.userId;
 
   const [form, setForm] = useState({
     restaurantName: "",
@@ -28,7 +31,7 @@ const CompleteRestaurantDetails = () => {
     setError("");
     
     if (!userId) {
-      setError("Invalid user session. Please register again.");
+      setError("Invalid session. Please log in or register again.");
       setTimeout(() => navigate("/admin-register"), 2000);
       return;
     }
@@ -69,7 +72,7 @@ const CompleteRestaurantDetails = () => {
               <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
                 Complete Restaurant Details
               </Typography>
-              <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", fontWeight: 300 }}>
+              <Typography variant="body2" sx={{ color: "text.secondary", fontWeight: 300 }}>
                 Please provide your restaurant information to complete registration
               </Typography>
             </Box>

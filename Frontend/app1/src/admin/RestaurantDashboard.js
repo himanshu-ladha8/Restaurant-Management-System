@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useThemeMode } from "../context/ThemeContext";
 import { Box, Typography, Alert, Grid, Card, CardContent, CircularProgress, Tabs, Tab, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip, FormControl, InputLabel, Select, MenuItem, Button, Stack, Accordion, AccordionSummary, AccordionDetails, Snackbar, TextField, ToggleButton, ToggleButtonGroup, IconButton } from "@mui/material";
@@ -13,6 +14,7 @@ import signalRService from "../services/signalRService";
 import html2pdf from "html2pdf.js";
 
 const RestaurantDashboard = () => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const { mode } = useThemeMode();
   const restaurantId = user?.restaurantId;
@@ -626,10 +628,16 @@ const RestaurantDashboard = () => {
   };
 
   if (!restaurantId) {
+    // Redirect to complete restaurant details so they can set up their restaurant
+    const userId = user?.userId;
+    if (userId) {
+      navigate("/complete-restaurant-details", { state: { userId }, replace: true });
+      return null;
+    }
     return (
       <Layout title="Restaurant Admin Dashboard">
         <Alert severity="warning" sx={{ mb: 3 }}>
-          No restaurant associated with your account. Please contact admin.
+          No restaurant associated with your account. Please complete restaurant details first.
         </Alert>
       </Layout>
     );
@@ -692,7 +700,7 @@ const RestaurantDashboard = () => {
                 },
               },
               "& .MuiTabs-indicator": {
-                backgroundColor: "#FF6B35",
+                backgroundColor: "primary.main",
               },
             }}
           >
@@ -1181,7 +1189,7 @@ const RestaurantDashboard = () => {
                     ) : meals.length === 0 ? (
                       <Card>
                         <CardContent sx={{ textAlign: "center", py: 8 }}>
-                          <RestaurantMenu sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+                          <RestaurantMenu sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
                           <Typography variant="h6" color="text.secondary">
                             No meals found
                           </Typography>
@@ -1555,7 +1563,7 @@ const RestaurantDashboard = () => {
                           </Typography>
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                          <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("todaySales")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: "rgba(255,255,255,0.9)" }} data-pdf-export-hide>
+                          <IconButton size="small" onClick={() => handleDownloadAnalyticsPdf("todaySales")} title="Download as PDF" disabled={!!pdfExportingSection} sx={{ color: mode === 'dark' ? "rgba(255,255,255,0.9)" : "rgba(0,0,0,0.87)" }} data-pdf-export-hide>
                             {pdfExportingSection === "todaySales" ? <CircularProgress size={20} /> : <PictureAsPdf fontSize="small" />}
                           </IconButton>
                           <Typography sx={{ fontSize: 60, opacity: 0.3, color: "white", fontWeight: 300, lineHeight: 1 }}>

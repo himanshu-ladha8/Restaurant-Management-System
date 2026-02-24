@@ -157,7 +157,14 @@ const AdminLogin = () => {
           if (role === "Admin") {
             navigate("/admin-dashboard");
           } else if (role === "RestaurantAdmin") {
-            navigate("/restaurant-dashboard");
+            // If restaurant not set up yet, go to complete restaurant details
+            if (!res.data.restaurantId) {
+              navigate("/complete-restaurant-details", {
+                state: { userId: res.data.userId },
+              });
+            } else {
+              navigate("/restaurant-dashboard");
+            }
           }
         }
       }, 1000);
@@ -193,7 +200,7 @@ const AdminLogin = () => {
             boxShadow: mode === 'dark' ? "0 24px 64px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.3)" : "0 24px 64px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.08)",
             transition: "all 0.3s",
             animation: 'fadeIn 0.6s ease-in',
-            bgcolor: mode === 'dark' ? 'rgba(26, 26, 26, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+            bgcolor: "background.paper",
             backdropFilter: 'blur(30px) saturate(180%)',
             WebkitBackdropFilter: 'blur(30px) saturate(180%)',
             border: mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
@@ -294,7 +301,7 @@ const AdminLogin = () => {
                   mb: 3,
                   borderRadius: "12px",
                   animation: 'slideIn 0.3s ease-out',
-                  bgcolor: mode === 'dark' ? 'rgba(26, 26, 26, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+                  bgcolor: "background.paper",
                   border: mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
                   color: mode === 'dark' ? '#FFFFFF' : '#1a1a1a',
                 }}
@@ -446,7 +453,7 @@ const AdminLogin = () => {
                     mb: 3,
                     borderRadius: "12px",
                     animation: 'slideIn 0.3s ease-out',
-                    bgcolor: mode === 'dark' ? 'rgba(26, 26, 26, 0.8)' : 'rgba(255, 255, 255, 0.9)',
+                    bgcolor: "background.paper",
                     border: mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
                   }}
                 >

@@ -1,13 +1,17 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext(null);
+
+const defaultThemeValue = {
+  mode: 'light',
+  toggleMode: () => {},
+  isDark: false,
+  isLight: true,
+};
 
 export const useThemeMode = () => {
   const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useThemeMode must be used within a ThemeProvider');
-  }
-  return context;
+  return context ?? defaultThemeValue;
 };
 
 export const ThemeProvider = ({ children }) => {

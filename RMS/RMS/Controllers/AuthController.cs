@@ -64,6 +64,30 @@ public class AuthController : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
+        // Send "Registered successfully" email to the user (Customer, Admin, RestaurantAdmin)
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                _logger.LogInformation($"[EMAIL] Sending registration success email to {email} for role: {role}");
+                var emailBody = GenerateRegistrationSuccessEmailBody(fullName ?? email, role, DateTime.UtcNow);
+                await _emailService.SendEmailAsync(
+                    email,
+                    "Registration Successful - Restaurant Management System",
+                    emailBody
+                );
+                _logger.LogInformation($"[EMAIL] SUCCESS: Registration email sent to {email}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"[EMAIL] FAILED: Registration email to {email}");
+            }
+        }).ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+                _logger.LogError($"[EMAIL] Registration email task faulted: {task.Exception?.GetBaseException()?.Message}");
+        }, TaskContinuationOptions.OnlyOnFaulted);
+
         // Return userId for RestaurantAdmin to complete restaurant setup
         if (role == "RestaurantAdmin")
         {
@@ -725,6 +749,57 @@ public class AuthController : ControllerBase
         <div class='footer'>
             <p>This is an automated message. Please do not reply to this email.</p>
             <p>&copy; {DateTime.UtcNow.Year} Restaurant Management System. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>";
+    }
+
+    private string GenerateRegistrationSuccessEmailBody(string userName, string role, DateTime registeredAt)
+    {
+        var formattedTime = registeredAt.ToString("MMMM dd, yyyy 'at' HH:mm:ss UTC");
+        var roleDisplay = role switch
+        {
+            "Customer" => "Customer",
+            "Admin" => "Administrator",
+            "RestaurantAdmin" => "Restaurant Administrator",
+            _ => "User"
+        };
+
+        return $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }}
+        .container {{ background-color: #ffffff; border-radius: 10px; padding: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }}
+        .header {{ text-align: center; color: #2c3e50; border-bottom: 3px solid #27ae60; padding-bottom: 20px; margin-bottom: 30px; }}
+        .header h1 {{ margin: 0; font-size: 28px; }}
+        .success-icon {{ text-align: center; font-size: 48px; color: #27ae60; margin: 20px 0; }}
+        .info-box {{ background-color: #ecf0f1; border-left: 4px solid #27ae60; padding: 15px; margin: 20px 0; border-radius: 4px; }}
+        .footer {{ margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #7f8c8d; font-size: 12px; }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'><h1>✓ Registered Successfully</h1></div>
+        <div class='success-icon'>✓</div>
+        <p>Hello <strong>{userName}</strong>,</p>
+        <p>Your account has been created successfully with the Restaurant Management System.</p>
+        <div class='info-box'>
+            <strong>Account details:</strong><br>
+            Account: {userName}<br>
+            Role: {roleDisplay}<br>
+            Registered at: {formattedTime}
+        </div>
+        <p>You can now log in with your email and password to access your account.</p>
+        <p>Thank you for joining us!</p>
+        <p>Best regards,<br><strong>Restaurant Management System Team</strong></p>
+        <div class='footer'>
+            <p>This is an automated message. Please do not reply to this email.</p>
+            <p>&copy; {DateTime.UtcNow.Year} Restaurant Management System.</p>
         </div>
     </div>
 </body>

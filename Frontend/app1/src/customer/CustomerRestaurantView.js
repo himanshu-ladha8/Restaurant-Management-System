@@ -967,7 +967,7 @@ const CustomerRestaurantView = () => {
                           <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                             Table {tableNumber}
                           </Typography>
-                          <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 2, fontWeight: 300 }}>
+                          <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 2, fontWeight: 300 }}>
                             Capacity: {capacity} {capacity === 1 ? "person" : "people"}
                           </Typography>
                           <Chip label="Available" color="success" sx={{ mb: 2 }} />
@@ -1111,7 +1111,7 @@ const CustomerRestaurantView = () => {
             ) : meals.length === 0 ? (
               <Card>
                 <CardContent sx={{ textAlign: "center", py: 8 }}>
-                  <RestaurantMenu sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+                  <RestaurantMenu sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
                   <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
                     No meals available
                   </Typography>
@@ -1328,7 +1328,7 @@ const CustomerRestaurantView = () => {
                             <Chip label={category} size="small" sx={{ mb: 1 }} />
                           )}
                           {description && (
-                            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 2, fontWeight: 300 }}>
+                            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 2, fontWeight: 300 }}>
                               {description}
                             </Typography>
                           )}
@@ -1367,7 +1367,7 @@ const CustomerRestaurantView = () => {
             ) : orders.length === 0 ? (
               <Card>
                 <CardContent sx={{ textAlign: "center", py: 8 }}>
-                  <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+                  <ShoppingCart sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
                   <Typography variant="h6" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }} gutterBottom>
                     No orders found
                   </Typography>
@@ -1481,7 +1481,7 @@ const CustomerRestaurantView = () => {
           {cart.length === 0 ? (
             <Box sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Box sx={{ textAlign: "center" }}>
-                <ShoppingCart sx={{ fontSize: 80, color: "rgba(255, 255, 255, 0.5)", mb: 2 }} />
+                <ShoppingCart sx={{ fontSize: 80, color: mode === 'dark' ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", mb: 2 }} />
                 <Typography variant="body1" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", fontWeight: 300 }}>
                   Your cart is empty
                 </Typography>
@@ -1568,13 +1568,13 @@ const CustomerRestaurantView = () => {
         </DialogTitle>
         <DialogContent>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", py: 2 }}>
-            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mb: 2, textAlign: "center", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mb: 2, textAlign: "center", fontWeight: 300 }}>
               Scan this QR code to view the menu for this table
             </Typography>
             {qrDialog.qrUrl && (
               <Box sx={{ 
                 p: 2, 
-                bgcolor: "rgba(255, 255, 255, 0.9)",
+                bgcolor: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)",
                 backdropFilter: "blur(20px) saturate(180%)",
                 WebkitBackdropFilter: "blur(20px) saturate(180%)",
                 borderRadius: 4, 
@@ -1585,7 +1585,7 @@ const CustomerRestaurantView = () => {
                 <QRCodeSVG value={qrDialog.qrUrl} size={256} />
               </Box>
             )}
-            <Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.9)", mt: 2, textAlign: "center", wordBreak: "break-all", fontWeight: 300 }}>
+            <Typography variant="body2" sx={{ color: mode === 'dark' ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.87)", mt: 2, textAlign: "center", wordBreak: "break-all", fontWeight: 300 }}>
               {qrDialog.qrUrl}
             </Typography>
             <Button
