@@ -5,9 +5,15 @@ import api from "../api/axiosConfig";
  */
 
 // Get all orders for the restaurant (with optional status filter)
+// 204 No Content is treated as success with empty array so dashboard counts work
 export const getOrders = (status = null) => {
   const params = status ? { status } : {};
-  return api.get("/restaurant-admin/orders", { params });
+  return api.get("/restaurant-admin/orders", { params }).then((response) => {
+    if (response.status === 204 || response.data == null) {
+      return { ...response, data: [] };
+    }
+    return response;
+  });
 };
 
 // Get a single order by ID

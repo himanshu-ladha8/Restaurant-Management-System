@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="RMS.EntityFramework/RMS.EntityFramework.csproj" />
   <Project Path="RMS.ServiceFramework/RMS.ServiceFramework.csproj" />
   <Project Path="RMS/RMS.csproj" />
 </Solution>

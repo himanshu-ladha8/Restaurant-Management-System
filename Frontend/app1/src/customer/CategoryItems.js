@@ -166,8 +166,23 @@ const CategoryItems = () => {
     navigate(`/customer-restaurant/${restaurantId}`);
   };
 
+  // Restaurant-themed background (same as Layout / system)
+  const bgImageUrl = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920";
+  const overlayLight = "rgba(252, 251, 249, 0.88)";
+  const overlayDark = "rgba(12, 12, 12, 0.92)";
+
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: mode === 'dark' ? "#0a0a0a" : "#f5f5f5", py: 4 }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        py: 4,
+        backgroundImage: `linear-gradient(${mode === "dark" ? overlayDark : overlayLight}, ${mode === "dark" ? overlayDark : overlayLight}), url("${bgImageUrl}")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Container maxWidth="lg">
         {/* Header */}
         <Box sx={{ mb: 4, display: "flex", alignItems: "center", gap: 2 }}>

@@ -134,7 +134,9 @@ const Home = () => {
         position="static" 
         elevation={0} 
         sx={{ 
-          background: mode === 'dark' ? '#1a1a1a' : '#ffffff',
+          position: "relative",
+          zIndex: 1,
+          background: mode === 'dark' ? 'rgba(26, 26, 26, 0.92)' : 'rgba(255, 255, 255, 0.92)',
           boxShadow: 'none',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
@@ -425,7 +427,7 @@ const Home = () => {
 
       {/* Service Cards Section */}
       <Box sx={{ bgcolor: "background.default", py: { xs: 8, sm: 10 }, px: { xs: 2, sm: 3 } }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
           <Box sx={{ textAlign: "center", mb: { xs: 6, md: 8 } }}>
             <Typography
               variant="h3"
