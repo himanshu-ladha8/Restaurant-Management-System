@@ -359,6 +359,18 @@ const StripeCheckout = ({ order, onSuccess, onError }) => {
     );
   }
 
+  // Guard against null/undefined order during concurrent render or before data loads
+  if (!order) {
+    return (
+      <Box sx={{ mt: 2 }}>
+        <CircularProgress size={24} />
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          Loading order...
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ mt: 2 }}>
       {loadingMethods ? (
@@ -538,7 +550,7 @@ const StripeCheckout = ({ order, onSuccess, onError }) => {
             }
             onClick={handlePay}
           >
-            {loading ? "Processing..." : `Pay ₹${order.totalAmount?.toFixed(2)}`}
+            {loading ? "Processing..." : `Pay ₹${(order?.totalAmount ?? 0).toFixed(2)}`}
           </Button>
         </>
       )}
